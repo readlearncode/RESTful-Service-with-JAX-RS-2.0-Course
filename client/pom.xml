@@ -54,7 +54,12 @@
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>${javaee-api.version}</version>
-            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>${javaee-api.version}</version>
         </dependency>
 
         <!-- PrimeFaces dependencies -->
@@ -170,6 +175,19 @@
                                     </properties>
                                 </deployable>
                             </deployables>
+                            <configuration>
+                                <properties>
+                                    <cargo.servlet.port>8082</cargo.servlet.port>
+                                    <cargo.glassfish.admin.port>4882</cargo.glassfish.admin.port>
+                                    <cargo.glassfish.jms.port>7682</cargo.glassfish.jms.port>
+                                    <cargo.glassfish.domain.jmxPort>8682</cargo.glassfish.domain.jmxPort>
+                                    <cargo.glassfish.http.ssl.port>8182</cargo.glassfish.http.ssl.port>
+                                    <cargo.glassfish.orb.ssl.port>3882</cargo.glassfish.orb.ssl.port>
+                                    <cargo.glassfish.orb.mutualauth.port>3982</cargo.glassfish.orb.mutualauth.port>
+                                    <cargo.glassfish.osgi.shell.telnet.port>6682</cargo.glassfish.osgi.shell.telnet.port>
+                                    <cargo.glassfish.orb.listener.port>3782</cargo.glassfish.orb.listener.port>
+                                </properties>
+                            </configuration>
                         </configuration>
                     </plugin>
                 </plugins>
