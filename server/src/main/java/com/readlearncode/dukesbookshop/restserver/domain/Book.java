@@ -3,7 +3,6 @@ package com.readlearncode.dukesbookshop.restserver.domain;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -14,7 +13,6 @@ import java.util.Date;
  * @author Alex Theedom www.readlearncode.com
  * @version 1.0
  */
-@XmlRootElement
 public class Book implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -31,6 +29,8 @@ public class Book implements Serializable {
 
     @Past
     private Date published;
+
+    public Book(){}
 
     public Book(String id, String title, BigDecimal price, Date published) {
         this.id = id;
