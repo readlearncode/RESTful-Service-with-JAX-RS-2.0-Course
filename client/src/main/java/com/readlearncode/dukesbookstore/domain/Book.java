@@ -1,4 +1,4 @@
-package com.readlearncode.dukesbookshop.restserver.domain;
+package com.readlearncode.dukesbookstore.domain;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;

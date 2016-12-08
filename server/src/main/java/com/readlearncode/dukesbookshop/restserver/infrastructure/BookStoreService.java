@@ -3,7 +3,7 @@ package com.readlearncode.dukesbookshop.restserver.infrastructure;
 import com.readlearncode.dukesbookshop.restserver.domain.Book;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.Stateless;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.validation.Valid;
@@ -20,7 +20,7 @@ import java.util.List;
  * @author Alex Theedom www.readlearncode.com
  * @version 1.0
  */
-@ApplicationScoped
+@Stateless
 @Path("books")
 public class BookStoreService {
 
@@ -48,6 +48,7 @@ public class BookStoreService {
     public Response getAll() {
         List<Book> books = bookRepository.getAll();
         GenericEntity<List<Book>> bookWrapper = new GenericEntity<List<Book>>(books) {};
+        System.out.println(books);
         return Response.ok(bookWrapper).build();
     }
 

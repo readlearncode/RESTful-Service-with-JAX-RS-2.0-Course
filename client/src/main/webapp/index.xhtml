@@ -1,7 +1,12 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
     <h:head>
         <title>Java EE Chat</title>
@@ -13,16 +18,63 @@
     </h:head>
 
     <h:body>
-        <div class="intro-header">
-            <div class="row">
-                <div class="intro-message">
-                    <hr class="intro-divider"/>
-                    <h1 class="shadowme">Chat</h1>
-                    <h2 class="shadowme">Chat application for Websocket Course</h2>
-                    <h2><a class="shadowme" style="color:orange;text-decoration:none;" href="rooms/login.xhtml">Login</a></h2>
-                    <hr class="intro-divider"/>
-                </div>
-            </div>
-        </div>
+
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{bookList.getBooks()}"/>
+        </f:metadata>
+
+        <p:dataTable var="book" value="#{bookList.books}">
+            <p:column headerText="Id">
+                <h:outputText value="#{book.id}" />
+            </p:column>
+
+            <p:column headerText="Title">
+                <h:outputText value="#{book.title}" />
+            </p:column>
+
+            <p:column headerText="Price">
+                <h:outputText value="#{book.price}" />
+            </p:column>
+
+            <p:column headerText="Published">
+                <h:outputText value="#{book.published}" />
+            </p:column>
+        </p:dataTable>
+
+
+
+        <h:form id="form">
+        <p:carousel value="#{bookList.books}" headerText="Responsive" var="book" itemStyle="text-align:center" responsive="true">
+            <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
+                <f:facet name="header">
+                    <p:graphicImage url="/images/covers/#{book.imageFileName}"/>
+                </f:facet>
+
+                <h:outputText value="Id:" />
+                <h:outputText value="#{book.id}" />
+
+                <h:outputLink target="#{book.link}" value="Title" />
+                <h:outputText value="#{book.title}" />
+
+                <h:outputText value="Authors:" />
+                <h:outputText value="#{book.authors}"/>
+
+                <h:outputText value="Description" />
+                <h:outputText value="#{book.description}" />
+
+                <h:outputText value="Price" />
+                <h:outputText value="$#{book.price}" />
+
+                <h:outputText value="Published" />
+                <h:outputText value="#{book.published}" />
+
+            </p:panelGrid>
+
+            <f:facet name="footer">
+                In total there are #{fn:length(bookList.books)} books.
+            </f:facet>
+        </p:carousel>
+        </h:form>
+
     </h:body>      
 </html>
