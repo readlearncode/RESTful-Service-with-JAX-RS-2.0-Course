@@ -26,14 +26,14 @@ import static org.junit.Assert.assertEquals;
  * @version 1.0
  */
 @RunWith(Arquillian.class)
-public class BookStoreServiceAPITest {
+public class BookResourceAPITest {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return ShrinkWrap
                 .create(WebArchive.class)
                 .addClass(RESTConfig.class)
-                .addClass(BookStoreService.class)
+                .addClass(BookResource.class)
                 .addClass(BookBean.class)
                 .addClass(BookRepository.class)
                 .addClass(Book.class)

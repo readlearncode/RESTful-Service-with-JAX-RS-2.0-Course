@@ -12,6 +12,17 @@
     <artifactId>rest-client</artifactId>
     <packaging>war</packaging>
 
+    <name>rest-client</name>
+    <url>http://localhost:8082/rest-client/</url>
+
+    <!--
+    Notes:
+
+        To launch the client execute navigate to the root directory (where pom.xml) is located and execute mvn clean package cargo:run
+        Go to http://localhost:8082/rest-client/ in your browser
+
+    -->
+
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <primefaces.version>6.0</primefaces.version>
@@ -25,8 +36,6 @@
         <javaee-api.version>7.0</javaee-api.version>
     </properties>
 
-    <name>rest-client</name>
-    <url>http://www.readlearncode.com</url>
 
     <repositories>
         <repository>
@@ -71,9 +80,15 @@
 
         <dependency>
             <groupId>org.primefaces.themes</groupId>
-            <artifactId>ui-lightness</artifactId>
-            <version>${ui-lightness.version}</version>
+            <artifactId>all-themes</artifactId>
+            <version>1.0.10</version>
         </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>org.primefaces.themes</groupId>-->
+            <!--<artifactId>ui-lightness</artifactId>-->
+            <!--<version>${ui-lightness.version}</version>-->
+        <!--</dependency>-->
 
         <!-- Test dependendencies -->
         <dependency>

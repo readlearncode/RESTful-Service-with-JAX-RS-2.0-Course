@@ -27,7 +27,8 @@ import java.util.stream.Collectors;
 @Stateless
 public class BookService {
 
-    private static final String API_BOOKS = "http://localhost:8081/rest-server/api/books";
+    private static final String API_URL = "http://localhost:8081/rest-server";
+    private static final String BOOKS_ENDPOINT = API_URL + "/api/books";
 
     private Client client;
 
@@ -40,7 +41,7 @@ public class BookService {
     public List<Book> getBooks() throws ParseException {
 
         List<Book> allBooks = new ArrayList<>();
-        WebTarget target = client.target(API_BOOKS);
+        WebTarget target = client.target(BOOKS_ENDPOINT);
         JsonArray response = target.request(MediaType.APPLICATION_JSON).get(JsonArray.class);
 
         for (int i = 0; i < response.size(); i++) {
@@ -51,15 +52,13 @@ public class BookService {
                     .setTitle(bookJson.getString("title"))
                     .setDescription(bookJson.getString("description"))
                     .setPrice((float) bookJson.getInt("price"))
-                    .setImageFileName(bookJson.getString("imageFileName"))
-
+                    .setImageFileName(API_URL + bookJson.getString("imageFileName"))
                     .setAuthors(
                             bookJson.getJsonArray("authors")
                                     .getValuesAs(JsonString.class)
                                     .stream()
                                     .map(JsonString::getString)
                                     .collect(Collectors.toList()))
-
                     .setPublished(bookJson.getString("published"))
                     .setLink(bookJson.getString("link"))
                     .createBook();

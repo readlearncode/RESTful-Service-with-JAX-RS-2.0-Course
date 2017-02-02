@@ -12,6 +12,9 @@
     <artifactId>rest-server</artifactId>
     <packaging>war</packaging>
 
+    <name>rest-server</name>
+    <url>http://localhost:8081</url>
+
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <java.version>1.8</java.version>
@@ -21,11 +24,8 @@
         <arquillian-rest-warp-bom.version>1.0.0.Alpha4</arquillian-rest-warp-bom.version>
     </properties>
 
-    <name>rest-server</name>
-    <url>http://www.readlearncode.com</url>
-
     <dependencyManagement>
-        <!-- Arquillian BOM used to reduce collision between testing dependecies. -->
+        <!-- Arquillian BOM used to reduce collision between testing dependencies. -->
         <dependencies>
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
@@ -34,7 +34,6 @@
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 

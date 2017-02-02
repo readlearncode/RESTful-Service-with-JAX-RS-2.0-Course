@@ -4,8 +4,6 @@ import com.readlearncode.dukesbookshop.restserver.domain.Book;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.json.Json;
-import javax.json.JsonObject;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
@@ -21,8 +19,8 @@ import java.util.List;
  * @version 1.0
  */
 @Stateless
-@Path("books")
-public class BookStoreService {
+@Path("/books")
+public class BookResource {
 
     @EJB
     private BookRepository bookRepository;
@@ -36,9 +34,10 @@ public class BookStoreService {
     }
 
     @DELETE
-    @Path("/{id:[0-9][0-9]*}")
-    public Response deleteBook(final @PathParam("id") String id) {
-        bookRepository.deleteBook(id);
+    @Path("{isbn:^\\d{9}[\\d|X]$}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteBook(final @PathParam("isbn") String isbn) {
+        bookRepository.deleteBook(isbn);
         return Response.ok().build();
     }
 
@@ -47,24 +46,25 @@ public class BookStoreService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
         List<Book> books = bookRepository.getAll();
-        GenericEntity<List<Book>> bookWrapper = new GenericEntity<List<Book>>(books) {};
+        GenericEntity<List<Book>> bookWrapper = new GenericEntity<List<Book>>(books) {
+        };
         System.out.println(books);
         return Response.ok(bookWrapper).build();
     }
 
     @GET
-    @Path("/{id}")
+    @Path("{isbn:^\\d{9}[\\d|X]$}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getById(final @PathParam("id") String id) {
-        Book book = bookRepository.getById(id);
+    public Response getById(final @PathParam("isbn") String isbn) {
+        Book book = bookRepository.getById(isbn);
         return Response.ok(book).build();
     }
 
-    @GET
-    @Path("duke")
-    public JsonObject getDuke(){
-        return Json.createObjectBuilder()
-                .add("name", "Duke")
-                .build();
-    }
+//    @GET
+//    @Path("duke")
+//    public JsonObject getDuke() {
+//        return Json.createObjectBuilder()
+//                .add("name", "Duke")
+//                .build();
+//    }
 }
