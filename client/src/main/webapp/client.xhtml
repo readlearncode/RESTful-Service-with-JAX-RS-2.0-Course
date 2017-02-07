@@ -12,11 +12,11 @@
 
 
         <f:metadata>
-            <f:event type="preRenderView" listener="#{bookList.getBooks()}"/>
+            <f:event type="preRenderView" listener="#{bookBean.getBooks()}"/>
         </f:metadata>
 
         <h:form id="form">
-            <p:carousel value="#{bookList.books}" headerText="Responsive" var="book" itemStyle="text-align:center"
+            <p:carousel value="#{bookBean.books}" headerText="Catalogue" var="book" itemStyle="text-align:center"
                         responsive="true">
                 <p:panelGrid columns="1" style="height: 300px;width:100%;margin:10px 10px" columnClasses="label,value" layout="grid"
                              styleClass="ui-panelgrid-blank">
@@ -29,8 +29,8 @@
 
                     <h:outputText value="by "/>
                     <ui:repeat value="#{book.authors}" var="author">
-                        <h:outputText value="#{author}"/>
-                        <c:if test="#{ empty book.authors}">
+                        <h:outputText value="#{author.firstName} #{author.lastName}"/>
+                        <c:if test="#{not empty book.authors}">
                         ,
                         </c:if>
                     </ui:repeat>
@@ -39,10 +39,12 @@
                         <f:convertNumber pattern="#0.00" maxFractionDigits="2"/>
                     </h:outputText>
 
+                    <!--<h:outputText value="$#{book.price}"/>-->
+
                 </p:panelGrid>
 
                 <f:facet name="footer">
-                    In total there are #{fn:length(bookList.books)} books.
+                    In total there are #{fn:length(bookBean.books)} books.
                 </f:facet>
             </p:carousel>
         </h:form>

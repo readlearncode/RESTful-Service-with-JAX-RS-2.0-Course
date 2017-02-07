@@ -2,6 +2,7 @@ package com.readlearncode.dukesbookshop.restserver.infrastructure;
 
 import com.readlearncode.dukesbookshop.RESTConfig;
 import com.readlearncode.dukesbookshop.restserver.domain.Book;
+import com.readlearncode.dukesbookshop.restserver.rest.BookResource;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.extension.rest.client.ArquillianResteasyResource;
@@ -34,7 +35,7 @@ public class BookResourceAPITest {
                 .create(WebArchive.class)
                 .addClass(RESTConfig.class)
                 .addClass(BookResource.class)
-                .addClass(BookBean.class)
+                .addClass(BookRepositoryBean.class)
                 .addClass(BookRepository.class)
                 .addClass(Book.class)
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");

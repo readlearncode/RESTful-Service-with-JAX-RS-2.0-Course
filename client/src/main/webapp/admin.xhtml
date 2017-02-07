@@ -3,15 +3,16 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <h:head>
     <title>Duke's Book Store - Powered by Java EE 7</title>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <h:outputStylesheet name="title.css"/>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"></link>
-    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css"/>
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
+          type="text/css"/>
 </h:head>
 
 <ui:composition template="/WEB-INF/templates/common.xhtml">
@@ -20,12 +21,22 @@
 
 
         <f:metadata>
-            <f:event type="preRenderView" listener="#{bookList.getBooks()}"/>
+            <f:event type="preRenderView" listener="#{bookBean.getBooks()}"/>
         </f:metadata>
 
-        <p:dataTable var="book" value="#{bookList.books}">
+        <p:dataTable var="book" value="#{bookBean.books}">
             <p:column headerText="Id">
                 <h:outputText value="#{book.id}"/>
+            </p:column>
+
+            <p:column headerText="Author">
+                <h:outputText value="by "/>
+                <ui:repeat value="#{book.authors}" var="author">
+                    <h:outputText value="#{author.firstName} #{author.lastName}"/>
+                    <c:if test="#{empty book.authors}">
+                        ,
+                    </c:if>
+                </ui:repeat>
             </p:column>
 
             <p:column headerText="Title">
@@ -42,7 +53,8 @@
 
             <p:column headerText="Action">
 
-                <p:commandButton value="delete" action="delete"/>
+                <h:commandButton value="delete" action="#{bookBean.deleteBook(book.id)}" />
+
                 <p:commandButton value="update" action="update"/>
 
             </p:column>

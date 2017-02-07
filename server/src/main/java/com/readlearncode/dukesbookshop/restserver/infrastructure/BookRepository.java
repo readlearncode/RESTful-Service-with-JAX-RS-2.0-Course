@@ -3,6 +3,7 @@ package com.readlearncode.dukesbookshop.restserver.infrastructure;
 import com.readlearncode.dukesbookshop.restserver.domain.Book;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Source code github.com/readlearncode
@@ -14,9 +15,10 @@ public interface BookRepository {
 
     Book saveBook(final Book book);
 
-    void deleteBook(final String id);
+    Optional<Book> deleteBook(final String id);
 
     List<Book> getAll();
 
-    Book getById(String id);
+    Optional<Book> getByISBN(String isbn);
+
 }

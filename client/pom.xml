@@ -13,13 +13,13 @@
     <packaging>war</packaging>
 
     <name>rest-client</name>
-    <url>http://localhost:8082/rest-client/</url>
+    <url>http://localhost:8080/rest-client/</url>
 
     <!--
     Notes:
 
         To launch the client execute navigate to the root directory (where pom.xml) is located and execute mvn clean package cargo:run
-        Go to http://localhost:8082/rest-client/ in your browser
+        Go to http://localhost:8080/rest-client/ in your browser
 
     -->
 
@@ -192,7 +192,8 @@
                             </deployables>
                             <configuration>
                                 <properties>
-                                    <cargo.servlet.port>8082</cargo.servlet.port>
+                                    <cargo.servlet.port>8080</cargo.servlet.port>
+                                    <!-- To avoid conflicts these ports are set -->
                                     <cargo.glassfish.admin.port>4882</cargo.glassfish.admin.port>
                                     <cargo.glassfish.jms.port>7682</cargo.glassfish.jms.port>
                                     <cargo.glassfish.domain.jmxPort>8682</cargo.glassfish.domain.jmxPort>

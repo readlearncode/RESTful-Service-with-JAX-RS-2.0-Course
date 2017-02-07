@@ -4,6 +4,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,7 +16,9 @@ import java.util.Objects;
  */
 @XmlRootElement
 public class Book implements Serializable {
+
     private static final long serialVersionUID = 1L;
+    private static final String IMAGE_LOCATION = "/images/covers/";
 
     @NotNull
     @Size(min = 10, max = 10)
@@ -29,7 +32,7 @@ public class Book implements Serializable {
     private String description;
 
     @NotNull
-    private List<String> authors;
+    private List<Author> authors = Collections.emptyList();
 
     @NotNull
     private Float price;
@@ -44,14 +47,14 @@ public class Book implements Serializable {
 
     public Book(){}
 
-    public Book(String id, String title, String description, Float price, String published, List<String> authors, String imageFileName, String link) {
+    public Book(String id, String title, String description, Float price, String published, List<Author> authors, String imageFileName, String link) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.price = price;
         this.published = published;
         this.authors = authors;
-        this.imageFileName = imageFileName;
+        this.imageFileName = imageFileName.length() == 0 ? IMAGE_LOCATION.concat("no_image.png") : imageFileName;
         this.link = link;
     }
 
@@ -99,12 +102,16 @@ public class Book implements Serializable {
         return serialVersionUID;
     }
 
-    public List<String> getAuthors() {
+    public List<Author> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(List<String> authors) {
+    public void setAuthors(List<Author> authors) {
         this.authors = authors;
+    }
+
+    public void addAuthor(Author author){
+        this.authors.add(author);
     }
 
     public String getImageFileName() {

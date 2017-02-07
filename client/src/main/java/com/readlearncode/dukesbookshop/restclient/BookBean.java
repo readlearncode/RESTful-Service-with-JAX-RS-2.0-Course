@@ -14,9 +14,10 @@ import java.util.List;
  * @author Alex Theedom www.readlearncode.com
  * @version 1.0
  */
-@Named("bookList")
+@Named("bookBean")
 @RequestScoped
 public class BookBean {
+
 
     @Inject
     private BookService bookService;
@@ -25,6 +26,11 @@ public class BookBean {
 
     public List<Book> getBooks() throws ParseException {
         return bookService.getBooks();
+    }
+
+    public String deleteBook(String isbn) {
+        bookService.deleteBook(isbn);
+        return "success?faces-redirect=true&includeViewParams=true";
     }
 
 

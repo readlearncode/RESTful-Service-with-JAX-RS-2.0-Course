@@ -13,24 +13,25 @@ import java.util.*;
  * @version 1.0
  */
 @Stateless
-public class BookBean implements BookRepository {
+public class BookRepositoryBean implements BookRepository {
+
+    private static final String IMAGE_LOCATION = "/images/covers/";
 
     private final Map<String, Book> books = new HashMap<>();
 
     @Override
     public Book saveBook(final Book book) {
-        if (Objects.isNull(book.getId())) {
-            book.setId(UUID.randomUUID().toString());
+        if (book.getImageFileName().length() == 0) {
+            book.setImageFileName(IMAGE_LOCATION.concat("no_image.png"));
         }
         books.put(book.getId(), book);
+        // TODO: check if author already exists and if not, create him/her
         return book;
     }
 
     @Override
-    public void deleteBook(final String id) {
-        if (books.containsKey(id)) {
-            books.remove(id);
-        }
+    public Optional<Book> deleteBook(final String id) {
+        return Optional.of(books.remove(id));
     }
 
     @Override
@@ -39,7 +40,7 @@ public class BookBean implements BookRepository {
     }
 
     @Override
-    public Book getById(final String id) {
-        return books.get(id);
+    public Optional<Book> getByISBN(final String id) {
+        return Optional.ofNullable(books.get(id));
     }
 }

@@ -146,8 +146,7 @@
                                     <cargo.glassfish.http.ssl.port>8180</cargo.glassfish.http.ssl.port>
                                     <cargo.glassfish.orb.ssl.port>3881</cargo.glassfish.orb.ssl.port>
                                     <cargo.glassfish.orb.mutualauth.port>3981</cargo.glassfish.orb.mutualauth.port>
-                                    <cargo.glassfish.osgi.shell.telnet.port>6681
-                                    </cargo.glassfish.osgi.shell.telnet.port>
+                                    <cargo.glassfish.osgi.shell.telnet.port>6681</cargo.glassfish.osgi.shell.telnet.port>
                                     <cargo.glassfish.orb.listener.port>3781</cargo.glassfish.orb.listener.port>
                                 </properties>
                             </configuration>

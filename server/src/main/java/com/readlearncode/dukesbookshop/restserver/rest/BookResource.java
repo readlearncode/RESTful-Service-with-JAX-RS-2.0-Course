@@ -1,6 +1,11 @@
-package com.readlearncode.dukesbookshop.restserver.infrastructure;
+package com.readlearncode.dukesbookshop.restserver.rest;
 
+import com.readlearncode.dukesbookshop.restserver.domain.Author;
 import com.readlearncode.dukesbookshop.restserver.domain.Book;
+import com.readlearncode.dukesbookshop.restserver.infrastructure.AuthorRepository;
+import com.readlearncode.dukesbookshop.restserver.infrastructure.BookRepository;
+import com.readlearncode.dukesbookshop.restserver.infrastructure.BookShopService;
+import com.readlearncode.dukesbookshop.restserver.infrastructure.Exceptions.ISBNNotFoundException;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -11,6 +16,7 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Source code github.com/readlearncode
@@ -25,6 +31,12 @@ public class BookResource {
     @EJB
     private BookRepository bookRepository;
 
+    @EJB
+    private AuthorRepository authorRepository;
+
+    @EJB
+    private BookShopService bookShopService;
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -34,11 +46,12 @@ public class BookResource {
     }
 
     @DELETE
-    @Path("{isbn:^\\d{9}[\\d|X]$}")
+    @Path("{isbn: \\d{9}[\\d|X]$}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteBook(final @PathParam("isbn") String isbn) {
-        bookRepository.deleteBook(isbn);
-        return Response.ok().build();
+    public Response deleteBook(final @PathParam("isbn") String isbn) throws ISBNNotFoundException {
+        return Response
+                .ok(bookRepository.deleteBook(isbn).orElseThrow(ISBNNotFoundException::new))
+                .build();
     }
 
 
@@ -53,11 +66,24 @@ public class BookResource {
     }
 
     @GET
-    @Path("{isbn:^\\d{9}[\\d|X]$}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{isbn: \\d{9}[\\d|X]$}")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getById(final @PathParam("isbn") String isbn) {
-        Book book = bookRepository.getById(isbn);
-        return Response.ok(book).build();
+        Optional<Book> book = bookRepository.getByISBN(isbn);
+        if (book.isPresent()) {
+            return Response.ok(book.get()).build();
+        }
+
+        return Response.noContent().build();
+    }
+
+    @GET
+    @Path("{isbn: \\d{9}[\\d|X]$}/authors")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAuthors(final @PathParam("isbn") String isbn) {
+        List<Author> authors = bookShopService.findAllAuthorsOfBookWithISBN(isbn);
+        return Response.ok(authors).build();
+
     }
 
 //    @GET

@@ -9,7 +9,7 @@ public class BookBuilder {
     private String description;
     private Float price;
     private String published;
-    private List<String> authors = new ArrayList<>();
+    private List<Author> authors = new ArrayList<>();
     private String imageFileName;
     private String link;
 
@@ -38,12 +38,12 @@ public class BookBuilder {
         return this;
     }
 
-    public BookBuilder setAuthors(List<String> authors) {
+    public BookBuilder setAuthors(List<Author> authors) {
         this.authors.addAll(authors);
         return this;
     }
 
-    public BookBuilder addAuthor(String author) {
+    public BookBuilder addAuthor(Author author) {
         this.authors.add(author);
         return this;
     }
