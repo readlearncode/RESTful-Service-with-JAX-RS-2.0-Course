@@ -37,10 +37,27 @@ public class BookResource {
     @EJB
     private BookShopService bookShopService;
 
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateBook(@NotNull @Valid final Book book) {
+        Book bookPersisted = bookRepository.saveBook(book);
+        return Response.ok(bookPersisted).build();
+    }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response saveBook(@NotNull @Valid final Book book) {
+        Book bookPersisted = bookRepository.saveBook(book);
+        return Response.ok(bookPersisted).build();
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{isbn: \\d{9}[\\d|X]$}")
+    public Response saveBookWithISBN(@NotNull @Valid final Book book) {
         Book bookPersisted = bookRepository.saveBook(book);
         return Response.ok(bookPersisted).build();
     }
@@ -57,7 +74,7 @@ public class BookResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAll() {
+    public Response getAllBooks() {
         List<Book> books = bookRepository.getAll();
         GenericEntity<List<Book>> bookWrapper = new GenericEntity<List<Book>>(books) {
         };
@@ -68,7 +85,7 @@ public class BookResource {
     @GET
     @Path("{isbn: \\d{9}[\\d|X]$}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response getById(final @PathParam("isbn") String isbn) {
+    public Response getBookByIsbn(final @PathParam("isbn") String isbn) {
         Optional<Book> book = bookRepository.getByISBN(isbn);
         if (book.isPresent()) {
             return Response.ok(book.get()).build();

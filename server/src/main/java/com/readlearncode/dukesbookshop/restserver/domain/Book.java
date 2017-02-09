@@ -4,8 +4,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -28,11 +27,11 @@ public class Book implements Serializable {
     @Size(min = 1)
     private String title;
 
-    @NotNull
+    @NotNull // TODO set a size
     private String description;
 
-    @NotNull
-    private List<Author> authors = Collections.emptyList();
+    @NotNull // TODO make this test for not empty
+    private ArrayList<Author> authors = new ArrayList<>(); // Must use concrete List implementation as JAX-RS doesn't play nice with interfaces.
 
     @NotNull
     private Float price;
@@ -42,12 +41,14 @@ public class Book implements Serializable {
     @NotNull
     private String link;
 
-    @NotNull
+    @NotNull // TODO: make this @Past
     private String published;
 
-    public Book(){}
+    public Book(){
+        // Required for serialisation/deserialisation
+    }
 
-    public Book(String id, String title, String description, Float price, String published, List<Author> authors, String imageFileName, String link) {
+    public Book(String id, String title, String description, Float price, String published, ArrayList<Author> authors, String imageFileName, String link) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -102,11 +103,11 @@ public class Book implements Serializable {
         return serialVersionUID;
     }
 
-    public List<Author> getAuthors() {
+    public ArrayList<Author> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(List<Author> authors) {
+    public void setAuthors(ArrayList<Author> authors) {
         this.authors = authors;
     }
 

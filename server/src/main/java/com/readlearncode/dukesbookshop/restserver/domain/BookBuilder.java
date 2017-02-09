@@ -1,7 +1,6 @@
 package com.readlearncode.dukesbookshop.restserver.domain;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class BookBuilder {
     private String id;
@@ -9,7 +8,7 @@ public class BookBuilder {
     private String description;
     private Float price;
     private String published;
-    private List<Author> authors = new ArrayList<>();
+    private ArrayList<Author> authors = new ArrayList<>();
     private String imageFileName;
     private String link;
 
@@ -38,7 +37,7 @@ public class BookBuilder {
         return this;
     }
 
-    public BookBuilder setAuthors(List<Author> authors) {
+    public BookBuilder setAuthors(ArrayList<Author> authors) {
         this.authors.addAll(authors);
         return this;
     }

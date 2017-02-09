@@ -21,4 +21,5 @@ public interface AuthorRepository {
 
     Optional<Author> getById(String id);
 
+    List<Author> saveAuthors(List<Author> authors);
 }
