@@ -3,28 +3,17 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:c="http://java.sun.com/jsp/jstl/core">
-
-<h:head>
-    <title>Duke's Book Store - Powered by Java EE 7</title>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <h:outputStylesheet name="title.css"/>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"></link>
-    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
-          type="text/css"/>
-</h:head>
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <ui:composition template="/WEB-INF/templates/common.xhtml">
     <ui:define name="title">Admin</ui:define>
     <ui:define name="content">
+        <!--<f:metadata>-->
+            <!--<f:event type="preRenderView" listener="#{BookCatalogue.getBooks()}"/>-->
+        <!--</f:metadata>-->
 
-
-        <f:metadata>
-            <f:event type="preRenderView" listener="#{bookBean.getBooks()}"/>
-        </f:metadata>
-
-        <p:dataTable var="book" value="#{bookBean.books}">
+        <p:dataTable var="book" value="#{bookCatalogue.books}">
             <p:column headerText="Id">
                 <h:outputText value="#{book.id}"/>
             </p:column>
@@ -53,14 +42,18 @@
 
             <p:column headerText="Action">
 
-                <h:commandButton value="delete" action="#{bookBean.deleteBook(book.id)}" />
+                <h:outputLink value="book-delete.xhtml">
+                    <f:param name="id" value="#{book.id}"/>
+                    Delete Book
+                </h:outputLink>
 
-                <p:commandButton value="update" action="update"/>
+                <h:outputLink value="book-edit.xhtml">
+                    <f:param name="id" value="#{book.id}"/>
+                    Edit Book
+                </h:outputLink>
 
             </p:column>
         </p:dataTable>
-
-
     </ui:define>
 </ui:composition>
 </html>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+<f:metadata>
+    <f:viewParam name="id" value="#{bookManager.id}"/>
+    <f:viewAction action="#{bookManager.onLoad}"/>
+</f:metadata>
+
+<h:form>
+    <p:panel id="panel" header="Edit Book" style="margin-bottom:10px;">
+        <p:messages id="messages"/>
+        <h:panelGrid columns="2" cellpadding="5">
+
+            <h:outputLabel for="title" value="Title:"/>
+            <p:inputText size="100" id="title"  value="#{bookManager.book.title}"/>
+
+            <h:outputLabel for="description" value="Description:"/>
+            <p:inputTextarea scrollHeight="10" id="description"  value="#{bookManager.book.description}"/>
+
+            <!--<h:outputLabel for="authors" value="Authors:"/>-->
+            <!--<p:selectOneListbox id="authors"  value="#{bookManager.book.authors}"/>-->
+
+            <p:selectOneMenu id="authors" value="#{bookManager.book.authors[0].id}" effect="fold" editable="true">
+                <f:selectItem itemLabel="Select One" itemValue="" />
+                <f:selectItems value="#{authorList.authorsAsMap}" />
+            </p:selectOneMenu>
+
+
+            <h:outputLabel for="price" value="Price:"/>
+            <p:inputText size="10" id="price"  value="#{bookManager.book.price}"/>
+
+            <h:outputLabel for="imageFileName" value="Image File Name:"/>
+            <p:inputText size="50" id="imageFileName"  value="#{bookManager.book.imageFileName}"/>
+
+            <h:outputLabel for="link" value="Link:"/>
+            <p:inputText size="100" id="link" value="#{bookManager.book.link}"/>
+
+            <h:outputLabel for="published" value="Published:"/>
+            <p:inputText size="10" id="published" value="#{bookManager.book.published}"/>
+
+        </h:panelGrid>
+    </p:panel>
+
+    <p:commandButton value="Submit" action="#{bookManager.submit}" />
+</h:form>
+
+</html>

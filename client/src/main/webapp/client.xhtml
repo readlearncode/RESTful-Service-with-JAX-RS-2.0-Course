@@ -11,12 +11,12 @@
     <ui:define name="content">
 
 
-        <f:metadata>
-            <f:event type="preRenderView" listener="#{bookBean.getBooks()}"/>
-        </f:metadata>
+        <!--<f:metadata>-->
+            <!--<f:event type="preRenderView" listener="#{bookBean.getBooks()}"/>-->
+        <!--</f:metadata>-->
 
         <h:form id="form">
-            <p:carousel value="#{bookBean.books}" headerText="Catalogue" var="book" itemStyle="text-align:center"
+            <p:carousel value="#{bookCatalogue.books}" headerText="Catalogue" var="book" itemStyle="text-align:center"
                         responsive="true">
                 <p:panelGrid columns="1" style="height: 300px;width:100%;margin:10px 10px" columnClasses="label,value" layout="grid"
                              styleClass="ui-panelgrid-blank">
@@ -35,11 +35,14 @@
                         </c:if>
                     </ui:repeat>
 
-                    <h:outputText value="$#{book.price}">
-                        <f:convertNumber pattern="#0.00" maxFractionDigits="2"/>
+                    <h:outputText value="#{book.price}">
+                        <f:convertNumber type="currency" currencySymbol="$" pattern="#0.##" maxFractionDigits="2"/>
                     </h:outputText>
 
-                    <!--<h:outputText value="$#{book.price}"/>-->
+                    <h:outputLink value="book-detail.xhtml">
+                        <f:param name="id" value="#{book.id}"/>
+                        Book Details
+                    </h:outputLink>
 
                 </p:panelGrid>
 

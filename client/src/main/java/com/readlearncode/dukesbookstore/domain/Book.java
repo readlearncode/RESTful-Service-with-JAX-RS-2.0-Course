@@ -1,7 +1,5 @@
 package com.readlearncode.dukesbookstore.domain;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
@@ -16,29 +14,20 @@ import java.util.Objects;
 public class Book implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @NotNull
-    @Size(min = 10, max = 10)
     private String id;
 
-    @NotNull
-    @Size(min = 1)
     private String title;
 
-    @NotNull
     private String description;
 
-    @NotNull
     private List<Author> authors = Collections.emptyList();
 
-    @NotNull
     private Float price;
 
     private String imageFileName;
 
-    @NotNull
     private String link;
 
-    @NotNull
     private String published;
 
     public Book(){}

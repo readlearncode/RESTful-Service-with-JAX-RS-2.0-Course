@@ -14,13 +14,12 @@ import java.util.List;
  * @author Alex Theedom www.readlearncode.com
  * @version 1.0
  */
-@Named("bookBean")
+@Named
 @RequestScoped
-public class BookBean {
-
+public class BookCatalogue {
 
     @Inject
-    private BookServiceImpl bookService;
+    private BookService bookService;
 
     private List<Book> books;
 
@@ -32,11 +31,5 @@ public class BookBean {
     public List<Book> getBooks()   {
         return books;
     }
-
-    public String deleteBook(String isbn) {
-        bookService.deleteBook(isbn);
-        return "success?faces-redirect=true&includeViewParams=true";
-    }
-
 
 }
