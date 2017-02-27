@@ -7,9 +7,16 @@
         <property name="deploymentExportPath">target/</property>
     </engine>
     <container qualifier="glassfish" default="true">
-        <configuration>
+
+            <!--<protocol type="Servlet 3.0">-->
+                <!--<property name="executionType">MANAGED</property>-->
+            <!--</protocol>-->
+            <configuration>
+                <property name="glassFishHome">C:\Alex\servers\glassfish-4.1.1\glassfish4</property>
+                <!--<property name="bindHttpPort">8185</property>-->
+            </configuration>
             <!-- <property name="outputToConsole">true</property> -->
-        </configuration>
+
     </container>
 
 </arquillian>

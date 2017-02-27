@@ -1,13 +1,14 @@
 package com.readlearncode.dukesbookshop.restserver.domain;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class BookBuilder {
     private String id;
     private String title;
     private String description;
     private Float price;
-    private String published;
+    private Date published;
     private ArrayList<Author> authors = new ArrayList<>();
     private String imageFileName;
     private String link;
@@ -32,7 +33,7 @@ public class BookBuilder {
         return this;
     }
 
-    public BookBuilder setPublished(String published) {
+    public BookBuilder setPublished(Date published) {
         this.published = published;
         return this;
     }

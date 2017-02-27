@@ -1,10 +1,10 @@
 package com.readlearncode.dukesbookshop.restserver.domain;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -14,41 +14,41 @@ import java.util.Objects;
  * @version 1.0
  */
 @XmlRootElement
-public class Book implements Serializable {
+public class Book extends Hypermedia implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private static final String IMAGE_LOCATION = "/images/covers/";
 
-    @NotNull
-    @Size(min = 10, max = 10)
+    @Size(min = 10, max = 10, message = "ISBN should be 10 characters")
     private String id;
 
-    @NotNull
-    @Size(min = 1)
+    @Size(min = 20)
     private String title;
 
-    @NotNull // TODO set a size
+    @Size(min = 100)
     private String description;
 
-    @NotNull // TODO make this test for not empty
+    @Size(min = 1)
     private ArrayList<Author> authors = new ArrayList<>(); // Must use concrete List implementation as JAX-RS doesn't play nice with interfaces.
 
-    @NotNull
+    @DecimalMin("0.00")
     private Float price;
 
+    @NotNull
     private String imageFileName;
 
     @NotNull
+    @Pattern(regexp="^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$")
     private String link;
 
-    @NotNull // TODO: make this @Past
-    private String published;
+    @Past // Format 2018-08-25T00:00:00+01:00
+    private Date published;
 
-    public Book(){
+    public Book() {
         // Required for serialisation/deserialisation
     }
 
-    public Book(String id, String title, String description, Float price, String published, ArrayList<Author> authors, String imageFileName, String link) {
+    public Book(String id, String title, String description, Float price, Date published, ArrayList<Author> authors, String imageFileName, String link) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -91,11 +91,11 @@ public class Book implements Serializable {
         this.price = price;
     }
 
-    public final String getPublished() {
+    public final Date getPublished() {
         return published;
     }
 
-    public final void setPublished(final String published) {
+    public final void setPublished(final Date published) {
         this.published = published;
     }
 
@@ -111,7 +111,7 @@ public class Book implements Serializable {
         this.authors = authors;
     }
 
-    public void addAuthor(Author author){
+    public void addAuthor(Author author) {
         this.authors.add(author);
     }
 
@@ -164,4 +164,5 @@ public class Book implements Serializable {
                 ", published='" + published + '\'' +
                 '}';
     }
+
 }

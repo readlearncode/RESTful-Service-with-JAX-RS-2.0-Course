@@ -2,6 +2,8 @@ package com.readlearncode.dukesbookshop.restserver.rest;
 
 import com.readlearncode.dukesbookshop.restserver.domain.Author;
 import com.readlearncode.dukesbookshop.restserver.domain.Book;
+import com.readlearncode.dukesbookshop.restserver.domain.Hypermedia;
+import com.readlearncode.dukesbookshop.restserver.domain.LinkResource;
 import com.readlearncode.dukesbookshop.restserver.infrastructure.AuthorRepository;
 import com.readlearncode.dukesbookshop.restserver.infrastructure.BookRepository;
 import com.readlearncode.dukesbookshop.restserver.infrastructure.BookShopService;
@@ -10,11 +12,8 @@ import com.readlearncode.dukesbookshop.restserver.infrastructure.Exceptions.ISBN
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
-import javax.ws.rs.core.GenericEntity;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +25,7 @@ import java.util.Optional;
  */
 @Stateless
 @Path("/books")
-public class BookResource {
+public class BookResource extends Hypermedia {
 
     @EJB
     private BookRepository bookRepository;
@@ -37,10 +36,13 @@ public class BookResource {
     @EJB
     private BookShopService bookShopService;
 
+    @Context
+    private UriInfo uriInfo;
+
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateBook(@NotNull @Valid final Book book) {
+    public Response updateBook(@Valid final Book book) {
         Book bookPersisted = bookRepository.saveBook(book);
         return Response.ok(bookPersisted).build();
     }
@@ -48,7 +50,7 @@ public class BookResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response saveBook(@NotNull @Valid final Book book) {
+    public Response saveBook(@Valid final Book book) {
         Book bookPersisted = bookRepository.saveBook(book);
         return Response.ok(bookPersisted).build();
     }
@@ -57,7 +59,7 @@ public class BookResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{isbn: \\d{9}[\\d|X]$}")
-    public Response saveBookWithISBN(@NotNull @Valid final Book book) {
+    public Response saveBookWithISBN(@Valid final Book book) {
         Book bookPersisted = bookRepository.saveBook(book);
         return Response.ok(bookPersisted).build();
     }
@@ -66,6 +68,21 @@ public class BookResource {
     @Path("{isbn: \\d{9}[\\d|X]$}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteBook(final @PathParam("isbn") String isbn) throws ISBNNotFoundException {
+
+//        Response response;
+//        try{
+//            response = Response.ok(bookRepository.deleteBook(isbn).get()).build();
+//        } catch (Exception e){
+//            response = Response.status(Response.Status.NOT_FOUND).build();
+//        }
+//        return response;
+
+//        try {
+//            return Response.ok(bookRepository.deleteBook(isbn)).build();
+//        } catch (Exception e) {
+//            throw new WebApplicationException(Response.Status.NO_CONTENT);
+//        }
+
         return Response
                 .ok(bookRepository.deleteBook(isbn).orElseThrow(ISBNNotFoundException::new))
                 .build();
@@ -76,22 +93,46 @@ public class BookResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllBooks() {
         List<Book> books = bookRepository.getAll();
-        GenericEntity<List<Book>> bookWrapper = new GenericEntity<List<Book>>(books) {
-        };
+//        books.forEach(book -> setHypermedia(book, uriInfo));
         System.out.println(books);
-        return Response.ok(bookWrapper).build();
+        return Response.ok(new GenericEntity<List<Book>>(books) {
+        }).build();
     }
 
     @GET
     @Path("{isbn: \\d{9}[\\d|X]$}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response getBookByIsbn(final @PathParam("isbn") String isbn) {
+    public Response getBookByIsbn(final @PathParam("isbn") String isbn) throws ISBNNotFoundException {
         Optional<Book> book = bookRepository.getByISBN(isbn);
         if (book.isPresent()) {
-            return Response.ok(book.get()).build();
+
+            Link self = Link.fromUri(uriInfo.getBaseUriBuilder()
+                    .path(getClass())
+                    .path(getClass(), "getBookByIsbn")
+                    .build(book.get().getId()))
+                    .rel("self")
+                    .type("GET")
+                    .build();
+
+            Link delete = Link.fromUri(uriInfo.getBaseUriBuilder()
+                    .path(getClass())
+                    .path(getClass(), "deleteBook")
+                    .build(book.get().getId()))
+                    .rel("delete")
+                    .type("DELETE")
+                    .build();
+
+            LinkResource selfLink = new LinkResource(self);
+            LinkResource deleteLink = new LinkResource(delete);
+
+            book.get().addLink(selfLink);
+            book.get().addLink(deleteLink);
+
+            return Response.ok(book.get()).links(self, delete).build();
         }
 
-        return Response.noContent().build();
+        throw new ISBNNotFoundException();
+//        return Response.noContent().build();
     }
 
     @GET
@@ -102,6 +143,40 @@ public class BookResource {
         return Response.ok(authors).build();
 
     }
+
+//
+//    private void setHypermedia(Book book, UriInfo uriInfo) {
+//
+//        System.out.println("uriInfo.getBaseUriBuilder() = " + uriInfo.getBaseUriBuilder());
+//
+//
+//        book.addLink(
+//                Link.fromUri(uriInfo.getBaseUriBuilder()
+//                        .path(getClass())
+//                        .path(getClass(), "getBookByIsbn")
+//                        .build(book.getId()))
+//                        .rel("self")
+//                        .type("GET")
+//                        .build());
+//
+//        System.out.println("link = " + Link.fromUri(uriInfo.getBaseUriBuilder()
+//                .path(getClass())
+//                .path(getClass(), "getBookByIsbn")
+//                .build(book.getId()))
+//                .rel("self")
+//                .type("GET")
+//                .build());
+//
+//
+//        book.addLink(
+//                Link.fromUri(uriInfo.getBaseUriBuilder()
+//                        .path(getClass())
+//                        .path(getClass(), "deleteBook")
+//                        .build(book.getId()))
+//                        .rel("delete")
+//                        .type("DELETE")
+//                        .build());
+//    }
 
 //    @GET
 //    @Path("duke")

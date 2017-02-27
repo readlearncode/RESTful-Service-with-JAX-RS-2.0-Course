@@ -26,9 +26,9 @@ import static org.junit.Assert.assertEquals;
  * @version 1.0
  */
 @RunWith(Arquillian.class)
-public class BookResourceAPITest {
+public class BookResourceHypermediaTest {
 
-    @Deployment(testable = false)
+    @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap
                 .create(WebArchive.class)
