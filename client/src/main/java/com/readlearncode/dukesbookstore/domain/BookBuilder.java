@@ -13,6 +13,7 @@ public class BookBuilder {
     private List<Author> authors = new ArrayList<>();
     private String imageFileName;
     private String link;
+    private List<LinkResource> links;
 
     public BookBuilder setId(String id) {
         this.id = id;
@@ -59,7 +60,12 @@ public class BookBuilder {
         return this;
     }
 
+    public BookBuilder setHyperlinks(List<LinkResource> links){
+        this.links = links;
+        return this;
+    }
+
     public Book createBook() {
-        return new Book(id, title, description, price, published, authors, imageFileName, link);
+        return new Book(id, title, description, price, published, authors, imageFileName, link, links);
     }
 }

@@ -1,8 +1,6 @@
 package com.readlearncode.dukesbookshop.restclient;
 
-import com.readlearncode.dukesbookstore.domain.Author;
-import com.readlearncode.dukesbookstore.domain.Book;
-import com.readlearncode.dukesbookstore.domain.BookBuilder;
+import com.readlearncode.dukesbookstore.domain.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -12,10 +10,10 @@ import javax.json.JsonObject;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Link;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import javax.ws.rs.core.Response;
+import java.util.*;
 
 /**
  * Source code github.com/readlearncode
@@ -29,6 +27,8 @@ public class BookServiceImpl implements BookService {
     private static final String API_URL = "http://localhost:8081/rest-server";
     private static final String BOOKS_ENDPOINT = API_URL + "/api/books";
 
+    private List<Book> allBooks = new ArrayList<>();
+
     private Client client;
 
     @PostConstruct
@@ -39,9 +39,24 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> getBooks() {
 
-        List<Book> allBooks = new ArrayList<>();
+//       List<Book> allBooks = new ArrayList<>();
         WebTarget target = client.target(BOOKS_ENDPOINT);
-        JsonArray response = target.request(MediaType.APPLICATION_JSON).get(JsonArray.class);
+
+        Response rep = target.request(MediaType.APPLICATION_JSON).get();
+        Set<Link> links = rep.getLinks();
+
+        System.out.println("links: " + links);
+
+        JsonArray response = rep.readEntity(JsonArray.class);
+
+        System.out.println("response: " + response);
+
+
+//        JsonArray response        .get(JsonArray.class);
+//        Response response = target.request(MediaType.APPLICATION_JSON).get().getLinks();
+//        List<Book> allBooks = response.readEntity(new GenericType<ArrayList<Book>>(){});
+//        System.out.println("AllBooks: " + allBooks);
+
 
         System.out.println("JsonArray response: " + response);
 
@@ -49,6 +64,7 @@ public class BookServiceImpl implements BookService {
             JsonObject bookJson = response.getJsonObject(i);
 
             List<Author> authors = extractAuthors(bookJson.getJsonArray("authors"));
+            List<LinkResource> hyperlinks = extractLinks(bookJson.getJsonArray("links"));
 
             Book book = new BookBuilder()
                     .setId(bookJson.getString("id"))
@@ -59,6 +75,7 @@ public class BookServiceImpl implements BookService {
                     .setAuthors(authors)
                     .setPublished(bookJson.getString("published"))
                     .setLink(bookJson.getString("link"))
+                    .setHyperlinks(hyperlinks)
                     .createBook();
 
             allBooks.add(book);
@@ -71,9 +88,20 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book getBook(String id) {
         WebTarget target = client.target(BOOKS_ENDPOINT + "/" + id);
-        JsonObject response = target.request(MediaType.APPLICATION_JSON).get(JsonObject.class);
+//        JsonObject response = target.request(MediaType.APPLICATION_JSON).get(JsonObject.class);
+
+
+        Response rep = target.request(MediaType.APPLICATION_JSON).get();
+        Set<Link> links = rep.getLinks();
+
+        System.out.println("links: " + links);
+
+        JsonObject response = rep.readEntity(JsonObject.class);
+
+        System.out.println("response: " + response);
 
         List<Author> authors = extractAuthors(response.getJsonArray("authors"));
+        List<LinkResource> hyperlinks = extractLinks(response.getJsonArray("_links"));
 
         Book book = new BookBuilder()
                 .setId(response.getString("id"))
@@ -84,14 +112,33 @@ public class BookServiceImpl implements BookService {
                 .setAuthors(authors)
                 .setPublished(response.getString("published"))
                 .setLink(response.getString("link"))
+                .setHyperlinks(hyperlinks)
                 .createBook();
 
         return book;
     }
 
+
     @Override
     public void deleteBook(String isbn) {
+
+        String uri = allBooks.stream()
+                .filter(book -> book.getId().equals(isbn))
+                .map(Hypermedia::getLinks)
+                .findFirst()
+                .get()
+                .stream()
+                .filter(linkResource -> linkResource.getRel().equals("delete"))
+                .findFirst()
+                .get()
+                .getUri();
+
+        WebTarget target = client.target(uri);
+
+        Response response = target.request(MediaType.APPLICATION_JSON).get();
+
         System.out.println("Delete Book ISBN: " + isbn);
+        System.out.println("Delete Book ISBN: response " + response);
     }
 
     @Override
@@ -120,6 +167,27 @@ public class BookServiceImpl implements BookService {
         return Collections.unmodifiableList(authors);
     }
 
+
+    /**
+     * Extracts the links from the json object
+     *
+     * @param linkArray the JSON array that contains the link list
+     * @return list of links
+     */
+    private List<LinkResource> extractLinks(JsonArray linkArray) {
+
+        List<LinkResource> links = new ArrayList<>();
+
+        for (int j = 0; j < linkArray.size(); j++) {
+            JsonObject jObject = linkArray.getJsonObject(j);
+            String rel = jObject.getString("rel", "");
+            String type = jObject.getString("type", "");
+            String uri = jObject.getString("uri", "");
+            links.add(new LinkResource(rel, type, uri));
+        }
+
+        return Collections.unmodifiableList(links);
+    }
 
     @PreDestroy
     private void destroy() {

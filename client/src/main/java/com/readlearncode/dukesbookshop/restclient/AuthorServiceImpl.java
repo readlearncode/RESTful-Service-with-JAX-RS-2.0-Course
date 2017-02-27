@@ -3,6 +3,7 @@ package com.readlearncode.dukesbookshop.restclient;
 import com.readlearncode.dukesbookstore.domain.Author;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.JsonArray;
 import javax.ws.rs.client.Client;
@@ -18,6 +19,7 @@ import java.util.List;
  * @author Alex Theedom www.readlearncode.com
  * @version 1.0
  */
+@ApplicationScoped
 public class AuthorServiceImpl implements AuthorService {
 
     private static final String API_URL = "http://localhost:8081/rest-server";

@@ -11,7 +11,7 @@ import java.util.Objects;
  * @author Alex Theedom www.readlearncode.com
  * @version 1.0
  */
-public class Book implements Serializable {
+public class Book extends Hypermedia implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String id;
@@ -32,7 +32,7 @@ public class Book implements Serializable {
 
     public Book(){}
 
-    public Book(String id, String title, String description, Float price, String published, List<Author> authors, String imageFileName, String link) {
+    public Book(String id, String title, String description, Float price, String published, List<Author> authors, String imageFileName, String link, List<LinkResource> links) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -41,6 +41,7 @@ public class Book implements Serializable {
         this.authors = authors;
         this.imageFileName = imageFileName;
         this.link = link;
+        this.setLinks(links);
     }
 
     public final String getId() {
