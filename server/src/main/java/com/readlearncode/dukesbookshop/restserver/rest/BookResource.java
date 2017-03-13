@@ -93,7 +93,7 @@ public class BookResource extends Hypermedia {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllBooks() {
         List<Book> books = bookRepository.getAll();
-//        books.forEach(book -> setHypermedia(book, uriInfo));
+        books.forEach(book -> setHypermedia(book, uriInfo));
         System.out.println(books);
         return Response.ok(new GenericEntity<List<Book>>(books) {
         }).build();
@@ -141,42 +141,36 @@ public class BookResource extends Hypermedia {
     public Response getAuthors(final @PathParam("isbn") String isbn) {
         List<Author> authors = bookShopService.findAllAuthorsOfBookWithISBN(isbn);
         return Response.ok(authors).build();
-
     }
 
-//
-//    private void setHypermedia(Book book, UriInfo uriInfo) {
-//
-//        System.out.println("uriInfo.getBaseUriBuilder() = " + uriInfo.getBaseUriBuilder());
-//
-//
-//        book.addLink(
-//                Link.fromUri(uriInfo.getBaseUriBuilder()
-//                        .path(getClass())
-//                        .path(getClass(), "getBookByIsbn")
-//                        .build(book.getId()))
-//                        .rel("self")
-//                        .type("GET")
-//                        .build());
-//
-//        System.out.println("link = " + Link.fromUri(uriInfo.getBaseUriBuilder()
-//                .path(getClass())
-//                .path(getClass(), "getBookByIsbn")
-//                .build(book.getId()))
-//                .rel("self")
-//                .type("GET")
-//                .build());
-//
-//
-//        book.addLink(
-//                Link.fromUri(uriInfo.getBaseUriBuilder()
-//                        .path(getClass())
-//                        .path(getClass(), "deleteBook")
-//                        .build(book.getId()))
-//                        .rel("delete")
-//                        .type("DELETE")
-//                        .build());
-//    }
+
+    private void setHypermedia(Book book, UriInfo uriInfo) {
+
+        System.out.println("uriInfo.getBaseUriBuilder() = " + uriInfo.getBaseUriBuilder());
+
+        Link self = Link.fromUri(uriInfo.getBaseUriBuilder()
+                .path(getClass())
+                .path(getClass(), "getBookByIsbn")
+                .build(book.getId()))
+                .rel("self")
+                .type("GET")
+                .build();
+
+        Link delete = Link.fromUri(uriInfo.getBaseUriBuilder()
+                .path(getClass())
+                .path(getClass(), "deleteBook")
+                .build(book.getId()))
+                .rel("delete")
+                .type("DELETE")
+                .build();
+
+        LinkResource selfLink = new LinkResource(self);
+        LinkResource deleteLink = new LinkResource(delete);
+
+        book.addLink(selfLink);
+        book.addLink(deleteLink);
+
+    }
 
 //    @GET
 //    @Path("duke")
