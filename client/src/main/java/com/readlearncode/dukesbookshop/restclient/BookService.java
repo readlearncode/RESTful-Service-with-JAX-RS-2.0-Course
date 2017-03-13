@@ -1,7 +1,7 @@
 package com.readlearncode.dukesbookshop.restclient;
 
-import com.readlearncode.dukesbookstore.domain.Author;
-import com.readlearncode.dukesbookstore.domain.Book;
+import com.readlearncode.dukesbookshop.domain.Author;
+import com.readlearncode.dukesbookshop.domain.Book;
 
 import javax.json.JsonArray;
 import java.util.List;

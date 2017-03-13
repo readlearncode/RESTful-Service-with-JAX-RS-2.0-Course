@@ -1,6 +1,8 @@
-package com.readlearncode.dukesbookshop.restclient;
+package com.readlearncode.dukesbookshop.beans;
 
-import com.readlearncode.dukesbookstore.domain.Book;
+import com.readlearncode.dukesbookshop.restclient.AuthorService;
+import com.readlearncode.dukesbookshop.restclient.BookService;
+import com.readlearncode.dukesbookshop.domain.Book;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;

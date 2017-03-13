@@ -1,6 +1,7 @@
-package com.readlearncode.dukesbookshop.restclient;
+package com.readlearncode.dukesbookshop.beans;
 
-import com.readlearncode.dukesbookstore.domain.Book;
+import com.readlearncode.dukesbookshop.restclient.BookService;
+import com.readlearncode.dukesbookshop.domain.Book;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;

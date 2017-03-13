@@ -1,4 +1,4 @@
-package com.readlearncode.dukesbookstore.domain;
+package com.readlearncode.dukesbookshop.domain;
 
 import java.io.Serializable;
 import java.util.Collections;

@@ -1,6 +1,6 @@
 package com.readlearncode.dukesbookshop.restclient;
 
-import com.readlearncode.dukesbookstore.domain.Author;
+import com.readlearncode.dukesbookshop.domain.Author;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;

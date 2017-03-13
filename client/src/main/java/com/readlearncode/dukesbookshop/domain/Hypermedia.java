@@ -1,4 +1,4 @@
-package com.readlearncode.dukesbookstore.domain;
+package com.readlearncode.dukesbookshop.domain;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
