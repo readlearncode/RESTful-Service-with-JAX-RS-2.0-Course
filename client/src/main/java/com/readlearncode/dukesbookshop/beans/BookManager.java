@@ -52,4 +52,9 @@ public class BookManager implements Serializable {
         return "book-details?id=" + book.getId();
     }
 
+    public void delete(String id){
+        System.out.println("delete id: " + id);
+        bookService.deleteBook(id);
+    }
+
 }

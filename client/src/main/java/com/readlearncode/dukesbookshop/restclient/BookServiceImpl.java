@@ -42,6 +42,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> getBooks() {
 
+        allBooks = new ArrayList<>(); //  Fix this hack
 
         WebTarget target = client.target(BOOKS_ENDPOINT);
 
@@ -139,6 +140,9 @@ public class BookServiceImpl implements BookService {
                 .get()
                 .getUri();
 
+        System.out.println("Delete Book uri: " + uri);
+
+
         WebTarget target = client.target(uri);
 
         Response response = target.request(MediaType.APPLICATION_JSON).delete();
@@ -149,7 +153,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book saveBook(Book book) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     /**
