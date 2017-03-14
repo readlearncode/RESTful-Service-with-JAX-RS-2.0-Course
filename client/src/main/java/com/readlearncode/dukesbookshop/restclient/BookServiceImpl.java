@@ -18,7 +18,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Source code github.com/readlearncode
@@ -67,7 +70,7 @@ public class BookServiceImpl implements BookService {
                             }
                         });
 
-        while(!bookCall.isDone());
+        while (!bookCall.isDone()) ;
 
         System.out.println("AllBooks: " + allBooks);
 
@@ -131,29 +134,40 @@ public class BookServiceImpl implements BookService {
     public Book getBook(String id) {
 
         WebTarget target = client.target(BOOKS_ENDPOINT + "/" + id);
-//        JsonObject response = target.request(MediaType.APPLICATION_JSON).get(JsonObject.class);
+//        JsonObject jsonResponse = target.request(MediaType.APPLICATION_JSON).get(JsonObject.class);
 
-        Response rep = target.request(MediaType.APPLICATION_JSON).get();
-        Set<Link> links = rep.getLinks();
+        Future<Response> bookCall = target.request(MediaType.APPLICATION_JSON).async().get();
+
+        while(!bookCall.isDone());
+
+        Response response = null;
+        try {
+            response = bookCall.get(60_000, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            e.printStackTrace();
+        }
+
+
+        Set<Link> links = response.getLinks();
 
         System.out.println("links: " + links);
 
-        JsonObject response = rep.readEntity(JsonObject.class);
+        JsonObject jsonResponse = response.readEntity(JsonObject.class);
 
-        System.out.println("response: " + response);
+        System.out.println("jsonResponse: " + jsonResponse);
 
-        List<Author> authors = extractAuthors(response.getJsonArray("authors"));
-        List<LinkResource> hyperlinks = extractLinks(response.getJsonArray("links"));
+        List<Author> authors = extractAuthors(jsonResponse.getJsonArray("authors"));
+        List<LinkResource> hyperlinks = extractLinks(jsonResponse.getJsonArray("links"));
 
         Book book = new BookBuilder()
-                .setId(response.getString("id"))
-                .setTitle(response.getString("title"))
-                .setDescription(response.getString("description"))
-                .setPrice((float) response.getInt("price"))
-                .setImageFileName(API_URL + response.getString("imageFileName"))
+                .setId(jsonResponse.getString("id"))
+                .setTitle(jsonResponse.getString("title"))
+                .setDescription(jsonResponse.getString("description"))
+                .setPrice((float) jsonResponse.getInt("price"))
+                .setImageFileName(API_URL + jsonResponse.getString("imageFileName"))
                 .setAuthors(authors)
-                .setPublished(response.getString("published"))
-                .setLink(response.getString("link"))
+                .setPublished(jsonResponse.getString("published"))
+                .setLink(jsonResponse.getString("link"))
                 .setHyperlinks(hyperlinks)
                 .createBook();
 
