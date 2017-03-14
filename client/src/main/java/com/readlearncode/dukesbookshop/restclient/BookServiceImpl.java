@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.Future;
 
 /**
  * Source code github.com/readlearncode
@@ -47,23 +48,26 @@ public class BookServiceImpl implements BookService {
 
         WebTarget target = client.target(BOOKS_ENDPOINT);
 
-        target.request(MediaType.APPLICATION_JSON).async().get(
-                new InvocationCallback<ArrayList<Book>>() {
+        Future<ArrayList<Book>> bookCall =
+                target.request(MediaType.APPLICATION_JSON).async().get(
+                        new InvocationCallback<ArrayList<Book>>() {
 
-                    @Override
-                    public void completed(ArrayList<Book> arrayListGenericType) {
-                        allBooks.addAll(arrayListGenericType);
-                        // populate cache with new books
-                        cachedBooks.clear();
-                        cachedBooks.addAll(arrayListGenericType);
-                    }
+                            @Override
+                            public void completed(ArrayList<Book> arrayListGenericType) {
+                                allBooks.addAll(arrayListGenericType);
+                                // populate cache with new books
+                                cachedBooks.clear();
+                                cachedBooks.addAll(arrayListGenericType);
+                            }
 
-                    @Override
-                    public void failed(Throwable throwable) {
-                        // use cached book list
-                        allBooks.addAll(cachedBooks);
-                    }
-                });
+                            @Override
+                            public void failed(Throwable throwable) {
+                                // use cached book list
+                                allBooks.addAll(cachedBooks);
+                            }
+                        });
+
+        while(!bookCall.isDone());
 
         System.out.println("AllBooks: " + allBooks);
 
