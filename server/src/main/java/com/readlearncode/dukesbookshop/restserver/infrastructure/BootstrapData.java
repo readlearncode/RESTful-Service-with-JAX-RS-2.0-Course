@@ -119,7 +119,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("226600589")
+                            .setId("2526987585")
                             .setTitle("Pet Farm")
                             .setDescription("The next worst thing to hell is being shanghaied into the Paradise of an alien planet!")
                             .setPrice(31.43f)
