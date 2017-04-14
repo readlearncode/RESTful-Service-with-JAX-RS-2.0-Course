@@ -36,11 +36,13 @@ public class BootstrapData {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
         // Create the authors
-        Author alex = authorRepository.saveAuthor(new Author("1", "Alex", "Theedom", "my blog 1"));
-        Author murat = authorRepository.saveAuthor(new Author("2", "Murat", "Yener", "my blog 2"));
-        Author onur = authorRepository.saveAuthor(new Author("3", "Onur", "Dundar", "my blog 3"));
-        Author arun = authorRepository.saveAuthor(new Author("4", "Arun", "Gupta", "my blog 4"));
-        Author adam = authorRepository.saveAuthor(new Author("5", "Adam", "Bien", "my blog 5"));
+        Author meek = authorRepository.saveAuthor(new Author("1", "Captain S. P.", "Meek", "www.gutenberg.org"));
+        Author wright = authorRepository.saveAuthor(new Author("2", "Sewell", "Peaslee Wright", "www.gutenberg.org"));
+        Author knight = authorRepository.saveAuthor(new Author("3", "Damon Francis", "Knight", "www.gutenberg.org"));
+        Author dee = authorRepository.saveAuthor(new Author("4", "Roger", "Dee", "www.gutenberg.org"));
+        Author sohl = authorRepository.saveAuthor(new Author("5", "Gerald Allan", "Sohl", "www.gutenberg.org"));
+        Author harmon = authorRepository.saveAuthor(new Author("6", "Jim", "Harmon", "www.gutenberg.org"));
+        Author fetlet = authorRepository.saveAuthor(new Author("7", "Andrew", "Fetler", "www.gutenberg.org"));
 
         try {
 
@@ -48,65 +50,109 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("111884341X")
-                            .setTitle("Professional Java EE Design Patterns")
-                            .setDescription("Professional java ee design patterns is the perfect companion for anyone who wants to work more effectively with java ee, and the only resource that covers both the theory and application of design patterns in solving real-world problems.")
+                            .setId("0000000000")
+                            .setTitle("The Thief of Time")
+                            .setDescription("HARVEY WINSTON, paying teller of the First National Bank of Chicago, stripped the band from a bundle of twenty dollar bills, counted out seventeen of them and added them to the pile on the counter before him.")
                             .setPrice(31.43f)
-                            .setImageFileName(API_URL + IMAGE_LOCATION + "java_ee_dp.jpg")
-                            .addAuthor(alex)
-                            .addAuthor(murat)
-                            .setPublished(dateFormat.parse("04-03-2015"))
-                            .setLink("https://www.amazon.com/Professional-Java-EE-Design-Patterns/dp/111884341X/")
+                            .setImageFileName(API_URL + IMAGE_LOCATION + "the_thief_of_time.jpg")
+                            .addAuthor(meek)
+                            .addAuthor(fetlet)
+                            .setPublished(dateFormat.parse("01-02-1930"))
+                            .setLink("https://www.gutenberg.org/ebooks/28617")
                             .createBook());
 
+            // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("1119089255")
-                            .setTitle("Expert Andriod Studio")
-                            .setDescription("Expert Android Studio bridges the gap between your Android programing skills with the provided tools including Android Studio, NDK, Gradle and Plugins for IntelliJ Idea Platform.")
-                            .setPrice(28.57f)
-                            .setImageFileName(API_URL + IMAGE_LOCATION + "expert_andriod.jpg")
-                            .addAuthor(murat)
-                            .addAuthor(onur)
-                            .setPublished(dateFormat.parse("25-08-2016"))
-                            .setLink("https://www.amazon.com/Expert-Android-Studio-Murat-Yener/dp/1119089255/")
+                            .setId("0000000000")
+                            .setTitle("Astounding Stories of Super Science")
+                            .setDescription("Commander John Hanson relates an interplanetary adventure illustrating the splendid Service spirit of the men of the Special Patrol.")
+                            .setPrice(31.43f)
+                            .setImageFileName(API_URL + IMAGE_LOCATION + "astounding_stories_of_super_science.jpg")
+                            .addAuthor(wright)
+                            .setPublished(dateFormat.parse("04-01-1931"))
+                            .setLink("https://www.gutenberg.org/ebooks/30177")
                             .createBook());
 
+            // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("1449370179")
-                            .setTitle("Java EE 7 Essentials: Enterprise Developer Handbook")
-                            .setDescription("Get up to speed on the principal technologies in the Java Platform, Enterprise Edition 7, and learn how the latest version embraces HTML5, focuses on higher productivity, and provides functionality to meet enterprise demands.")
-                            .setPrice(29.62f)
-                            .setImageFileName(API_URL + IMAGE_LOCATION + "java_ee_essentials.jpg")
-                            .addAuthor(arun)
-                            .setPublished(dateFormat.parse("09-08-2013"))
-                            .setLink("https://www.amazon.com/Java-EE-Essentials-Enterprise-Developer/dp/1449370179/")
+                            .setId("0000000000")
+                            .setTitle("Special Delivery")
+                            .setDescription("All Len had to hear was the old gag: \"We've never lost a father yet.\" His child was not even born and it was thoroughly unbearable!")
+                            .setPrice(31.43f)
+                            .setImageFileName(API_URL + IMAGE_LOCATION + "special_delivery.jpg")
+                            .addAuthor(knight)
+                            .setPublished(dateFormat.parse("05-04-1954"))
+                            .setLink("https://www.gutenberg.org/ebooks/32011")
                             .createBook());
 
+
+            // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("143024626X")
-                            .setTitle("Beginning Java EE 7")
-                            .setDescription("Java Enterprise Edition (Java EE) continues to be one of the leading Java technologies and platforms. Beginning Java EE 7 is the first tutorial book on Java EE 7.")
-                            .setPrice(24.42f)
-                            .setImageFileName(API_URL + IMAGE_LOCATION + "beginning_java_ee_7.jpg")
-                            .addAuthor(arun)
-                            .setPublished(dateFormat.parse("09-08-2013"))
-                            .setLink("https://www.amazon.com/Beginning-Java-EE-Expert-Voice/dp/143024626X/")
+                            .setId("0000000000")
+                            .setTitle("Clean Break")
+                            .setDescription("A veteran veterinarian might have vamoosed—but Watts had to help any sick animal....!")
+                            .setPrice(31.43f)
+                            .setImageFileName(API_URL + IMAGE_LOCATION + "clean_break.jpg")
+                            .addAuthor(dee)
+                            .setPublished(dateFormat.parse("10-11-1953"))
+                            .setLink("https://www.gutenberg.org/ebooks/32212")
                             .createBook());
 
+
+            // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("1300149310")
-                            .setTitle("Real World Java EE Patterns--Rethinking Best Practices")
-                            .setDescription("Real World Java EE Pattern--Rethinking Best Practices discusses efficient patterns and best practices in a structured way, with code from real world projects.")
-                            .setPrice(11.71f)
-                            .setImageFileName(API_URL + IMAGE_LOCATION + "real_world_java_ee_patterns.jpg")
-                            .addAuthor(adam)
-                            .setPublished(dateFormat.parse("31-10-2012"))
-                            .setLink("https://www.amazon.com/Real-World-Java-Patterns-Rethinking-Practices/dp/1300149310/")
+                            .setId("0000000000")
+                            .setTitle("The Seventh Order")
+                            .setDescription("A veteran veterinarian might have vamoosed—but Watts had to help any sick animal....!")
+                            .setPrice(31.43f)
+                            .setImageFileName(API_URL + IMAGE_LOCATION + "the_seventh_order.jpg")
+                            .addAuthor(sohl)
+                            .setPublished(dateFormat.parse("16-03-1952"))
+                            .setLink("https://www.gutenberg.org/ebooks/32327")
                             .createBook());
+
+            // Create the books
+            bookRepository.saveBook(
+                    new BookBuilder()
+                            .setId("0000000000")
+                            .setTitle("Pet Farm")
+                            .setDescription("The next worst thing to hell is being shanghaied into the Paradise of an alien planet!")
+                            .setPrice(31.43f)
+                            .setImageFileName(API_URL + IMAGE_LOCATION + "pet_farm.jpg")
+                            .addAuthor(dee)
+                            .setPublished(dateFormat.parse("23-02-1954"))
+                            .setLink("https://www.gutenberg.org/ebooks/32344")
+                            .createBook());
+
+            // Create the books
+            bookRepository.saveBook(
+                    new BookBuilder()
+                            .setId("0000000000")
+                            .setTitle("The Place Where Chicago Was")
+                            .setDescription("Well, they finally got rid of war. For the first time there was peace on Earth—since the only possible victims were the killers themselves!")
+                            .setPrice(31.43f)
+                            .setImageFileName(API_URL + IMAGE_LOCATION + "the_place_where_chicago_was.jpg")
+                            .addAuthor(harmon)
+                            .setPublished(dateFormat.parse("04-02-1962"))
+                            .setLink("https://www.gutenberg.org/ebooks/51832")
+                            .createBook());
+            // Create the books
+            bookRepository.saveBook(
+                    new BookBuilder()
+                            .setId("0000000000")
+                            .setTitle("Cry Snooker")
+                            .setDescription("At the breakfast table next morning George gave her the diamond cocktail ring she'd drooled over. Rosy gave him the self-winding time piece he'd slobbered over in Cellini's window.")
+                            .setPrice(31.43f)
+                            .setImageFileName(API_URL + IMAGE_LOCATION + "cry_snooker.jpg")
+                            .addAuthor(fetlet)
+                            .setPublished(dateFormat.parse("12-10-1960"))
+                            .setLink("https://www.gutenberg.org/ebooks/51570")
+                            .createBook());
+
 
         } catch (ParseException e) {
             System.out.println("Exception thrown while bootstrapping. " + e);
