@@ -43,6 +43,7 @@ public class BootstrapData {
         Author sohl = authorRepository.saveAuthor(new Author("5", "Gerald Allan", "Sohl", "www.gutenberg.org"));
         Author harmon = authorRepository.saveAuthor(new Author("6", "Jim", "Harmon", "www.gutenberg.org"));
         Author fetlet = authorRepository.saveAuthor(new Author("7", "Andrew", "Fetler", "www.gutenberg.org"));
+        Author leiber = authorRepository.saveAuthor(new Author("8", "Fritz", "Leiber", "www.gutenberg.org"));
 
         try {
 
@@ -50,7 +51,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("0000000000")
+                            .setId("1239875824")
                             .setTitle("The Thief of Time")
                             .setDescription("HARVEY WINSTON, paying teller of the First National Bank of Chicago, stripped the band from a bundle of twenty dollar bills, counted out seventeen of them and added them to the pile on the counter before him.")
                             .setPrice(31.43f)
@@ -64,7 +65,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("0000000000")
+                            .setId("6983458724")
                             .setTitle("Astounding Stories of Super Science")
                             .setDescription("Commander John Hanson relates an interplanetary adventure illustrating the splendid Service spirit of the men of the Special Patrol.")
                             .setPrice(31.43f)
@@ -77,7 +78,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("0000000000")
+                            .setId("588968547X")
                             .setTitle("Special Delivery")
                             .setDescription("All Len had to hear was the old gag: \"We've never lost a father yet.\" His child was not even born and it was thoroughly unbearable!")
                             .setPrice(31.43f)
@@ -91,7 +92,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("0000000000")
+                            .setId("6958628754")
                             .setTitle("Clean Break")
                             .setDescription("A veteran veterinarian might have vamoosed—but Watts had to help any sick animal....!")
                             .setPrice(31.43f)
@@ -105,7 +106,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("0000000000")
+                            .setId("1159638459")
                             .setTitle("The Seventh Order")
                             .setDescription("A veteran veterinarian might have vamoosed—but Watts had to help any sick animal....!")
                             .setPrice(31.43f)
@@ -118,7 +119,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("0000000000")
+                            .setId("226600589")
                             .setTitle("Pet Farm")
                             .setDescription("The next worst thing to hell is being shanghaied into the Paradise of an alien planet!")
                             .setPrice(31.43f)
@@ -131,7 +132,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("0000000000")
+                            .setId("569835759X")
                             .setTitle("The Place Where Chicago Was")
                             .setDescription("Well, they finally got rid of war. For the first time there was peace on Earth—since the only possible victims were the killers themselves!")
                             .setPrice(31.43f)
@@ -143,7 +144,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("0000000000")
+                            .setId("6986975426")
                             .setTitle("Cry Snooker")
                             .setDescription("At the breakfast table next morning George gave her the diamond cocktail ring she'd drooled over. Rosy gave him the self-winding time piece he'd slobbered over in Cellini's window.")
                             .setPrice(31.43f)
@@ -151,6 +152,20 @@ public class BootstrapData {
                             .addAuthor(fetlet)
                             .setPublished(dateFormat.parse("12-10-1960"))
                             .setLink("https://www.gutenberg.org/ebooks/51570")
+                            .createBook());
+
+
+            // Create the books
+            bookRepository.saveBook(
+                    new BookBuilder()
+                            .setId("8879585785")
+                            .setTitle("Later Than You Think")
+                            .setDescription("It's much later. The question is ... how late?")
+                            .setPrice(31.43f)
+                            .setImageFileName(API_URL + IMAGE_LOCATION + "later_than_you_think.jpg")
+                            .addAuthor(leiber)
+                            .setPublished(dateFormat.parse("10-10-1950"))
+                            .setLink("https://www.gutenberg.org/ebooks/50753")
                             .createBook());
 
 
