@@ -6,8 +6,8 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>server</module>
-        <module>client</module>
+        <module>rest-server</module>
+        <module>rest-client</module>
     </modules>
 
     <properties>
