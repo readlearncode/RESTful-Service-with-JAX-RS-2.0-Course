@@ -42,7 +42,8 @@ public class BookResource extends Hypermedia {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateBook(@Valid final Book book) {
+    @Path("{isbn: \\d{9}[\\d|X]$}")
+    public Response updateBook(@Valid final Book book, final @PathParam("isbn") String isbn) {
         Book bookPersisted = bookRepository.saveBook(book);
         return Response.ok(bookPersisted).build();
     }
@@ -59,7 +60,7 @@ public class BookResource extends Hypermedia {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{isbn: \\d{9}[\\d|X]$}")
-    public Response saveBookWithISBN(@Valid final Book book) {
+    public Response saveBookWithISBN(@Valid final Book book, final @PathParam("isbn") String isbn) {
         Book bookPersisted = bookRepository.saveBook(book);
         return Response.ok(bookPersisted).build();
     }
