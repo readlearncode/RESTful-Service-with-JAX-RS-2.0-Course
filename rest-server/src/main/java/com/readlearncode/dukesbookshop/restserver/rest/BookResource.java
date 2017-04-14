@@ -52,6 +52,7 @@ public class BookResource extends Hypermedia {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response saveBook(@Valid final Book book) {
+        book.generateISBN(); // TODO: make truly random
         Book bookPersisted = bookRepository.saveBook(book);
         return Response.ok(bookPersisted).build();
     }

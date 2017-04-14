@@ -165,4 +165,8 @@ public class Book extends Hypermedia implements Serializable {
                 '}';
     }
 
+
+    public void generateISBN() {
+        this.setId("1234567890");
+    }
 }

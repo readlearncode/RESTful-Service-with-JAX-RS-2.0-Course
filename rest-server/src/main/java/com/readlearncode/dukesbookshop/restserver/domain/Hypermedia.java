@@ -27,4 +27,5 @@ public abstract class Hypermedia {
     public void addLink(LinkResource linkResource){
         links.add(linkResource);
     }
+
 }
