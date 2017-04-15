@@ -17,7 +17,7 @@
     <f:viewAction action="#{bookManager.onLoad}"/>
 </f:metadata>
 
-    <p:panelGrid columns="2" styleClass="ui-datatable-width">
+    <p:panelGrid columns="2" styleClass="ui-panelgrid-width">
 
         <f:facet name="header">
 
@@ -39,11 +39,15 @@
         <h:outputText value="Description"/>
         <h:outputText value="#{bookManager.book.description}" styleClass="ui-fixed-width"/>
 
-        <h:outputText value="Published"/>
-        <h:outputText value="#{bookManager.book.published}"/>
+        <h:outputText value="Published">
+            <h:outputText value="#{bookManager.book.published}"/>
+            <f:convertDateTime pattern="MM.yyyy"/>
+        </h:outputText>
 
         <h:outputText value="Price"/>
-        <h:outputText value="#{bookManager.book.price}"/>
+            <h:outputText value="#{bookManager.book.price}">
+            <f:convertNumber type="currency" currencySymbol="$" pattern="#0.00" minFractionDigits="2"/>
+        </h:outputText>
 
         <h:outputText value="ISBN"/>
         <h:outputText value="#{bookManager.book.id}"/>

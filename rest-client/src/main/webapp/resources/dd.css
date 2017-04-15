@@ -98,9 +98,15 @@
 }
 
 .ui-datatable-width {
+    width: 800px;
+    display: block;
+    align-self: center;
+}
+
+.ui-panelgrid-width {
     width: 500px;
     display: block;
-    text-align: center;
+    align-self: center;
 }
 
 
