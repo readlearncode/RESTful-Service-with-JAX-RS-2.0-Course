@@ -36,14 +36,14 @@ public class BootstrapData {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
         // Create the authors
-        Author meek = authorRepository.saveAuthor(new Author("1", "Captain S. P.", "Meek", "www.gutenberg.org"));
-        Author wright = authorRepository.saveAuthor(new Author("2", "Sewell", "Peaslee Wright", "www.gutenberg.org"));
-        Author knight = authorRepository.saveAuthor(new Author("3", "Damon Francis", "Knight", "www.gutenberg.org"));
-        Author dee = authorRepository.saveAuthor(new Author("4", "Roger", "Dee", "www.gutenberg.org"));
-        Author sohl = authorRepository.saveAuthor(new Author("5", "Gerald Allan", "Sohl", "www.gutenberg.org"));
-        Author harmon = authorRepository.saveAuthor(new Author("6", "Jim", "Harmon", "www.gutenberg.org"));
-        Author fetlet = authorRepository.saveAuthor(new Author("7", "Andrew", "Fetler", "www.gutenberg.org"));
-        Author leiber = authorRepository.saveAuthor(new Author("8", "Fritz", "Leiber", "www.gutenberg.org"));
+        Author meek = authorRepository.saveAuthor(new Author("1", "Captain S. P.", "Meek", "http://www.gutenberg.org"));
+        Author wright = authorRepository.saveAuthor(new Author("2", "Sewell", "Peaslee Wright", "http://www.gutenberg.org"));
+        Author knight = authorRepository.saveAuthor(new Author("3", "Damon Francis", "Knight", "http://www.gutenberg.org"));
+        Author dee = authorRepository.saveAuthor(new Author("4", "Roger", "Dee", "http://www.gutenberg.org"));
+        Author sohl = authorRepository.saveAuthor(new Author("5", "Gerald Allan", "Sohl", "http://www.gutenberg.org"));
+        Author harmon = authorRepository.saveAuthor(new Author("6", "Jim", "Harmon", "http://www.gutenberg.org"));
+        Author fetlet = authorRepository.saveAuthor(new Author("7", "Andrew", "Fetler", "http://www.gutenberg.org"));
+        Author leiber = authorRepository.saveAuthor(new Author("8", "Fritz", "Leiber", "http://www.gutenberg.org"));
 
         try {
 
