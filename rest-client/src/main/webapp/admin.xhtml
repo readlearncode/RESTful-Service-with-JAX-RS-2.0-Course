@@ -10,31 +10,32 @@
     <ui:define name="title">Admin</ui:define>
     <ui:define name="content">
         <!--<f:metadata>-->
-            <!--<f:event type="preRenderView" listener="#{BookCatalogue.getBooks()}"/>-->
+        <!--<f:event type="preRenderView" listener="#{BookCatalogue.getBooks()}"/>-->
         <!--</f:metadata>-->
 
         <p:dataTable var="book" value="#{bookCatalogue.books}">
-            <p:column headerText="Id">
-                <h:outputText value="#{book.id}"/>
+
+            <p:column headerText="Title">
+                <h:outputText value="#{book.title}"/>
             </p:column>
 
             <p:column headerText="Author">
                 <h:outputText value="by "/>
                 <ui:repeat value="#{book.authors}" var="author">
                     <h:outputText value="#{author.firstName} #{author.lastName}"/>
-                    <c:if test="#{empty book.authors}">
-                        ,
-                    </c:if>
                 </ui:repeat>
             </p:column>
 
-            <p:column headerText="Title">
-                <h:outputText value="#{book.title}"/>
+            <p:column headerText="Price">
+                <h:outputText value="#{book.price}">
+                    <f:convertNumber type="currency" currencySymbol="$" pattern="#0.00" minFractionDigits="2"/>
+                </h:outputText>
             </p:column>
 
-            <p:column headerText="Price">
-                <h:outputText value="#{book.price}"/>
+            <p:column headerText="Id">
+                <h:outputText value="#{book.id}"/>
             </p:column>
+
 
             <p:column headerText="Published">
                 <h:outputText value="#{book.published}"/>
@@ -42,11 +43,11 @@
 
             <p:column headerText="Action">
                 <h:form>
-                    <h:commandLink value="delete" action="#{bookManager.delete(book.id)}" />
+                    <h:commandLink value="delete" action="#{bookManager.delete(book.id)}"/>
                 </h:form>
                 <!--<h:outputLink value="book-edit.xhtml">-->
-                    <!--<f:param name="id" value="#{book.id}"/>-->
-                    <!--Edit Book-->
+                <!--<f:param name="id" value="#{book.id}"/>-->
+                <!--Edit Book-->
                 <!--</h:outputLink>-->
 
             </p:column>

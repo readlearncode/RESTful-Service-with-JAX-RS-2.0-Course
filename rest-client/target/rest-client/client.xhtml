@@ -21,8 +21,10 @@
                 <p:panelGrid columns="1" style="height: 300px;width:100%;margin:10px 10px" columnClasses="label,value" layout="grid"
                              styleClass="ui-panelgrid-blank">
                     <f:facet name="header">
+                        <h:outputLink target="_blank" value="#{book.imageFileName}">
                         <p:graphicImage title="#{book.title}" url="#{book.imageFileName}" width="100" height="125"
                                         alt="#{book.title}"/>
+                        </h:outputLink>
                     </f:facet>
 
                     <h:outputText value="#{book.title}"/>
@@ -30,13 +32,10 @@
                     <h:outputText value="by "/>
                     <ui:repeat value="#{book.authors}" var="author">
                         <h:outputText value="#{author.firstName} #{author.lastName}"/>
-                        <c:if test="#{not empty book.authors}">
-                        ,
-                        </c:if>
                     </ui:repeat>
 
                     <h:outputText value="#{book.price}">
-                        <f:convertNumber type="currency" currencySymbol="$" pattern="#0.##" maxFractionDigits="2"/>
+                        <f:convertNumber type="currency" currencySymbol="$" pattern="#0.00" minFractionDigits="2"/>
                     </h:outputText>
 
                     <h:outputLink value="book-detail.xhtml">

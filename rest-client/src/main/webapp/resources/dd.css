@@ -6,6 +6,12 @@
     margin: 8px;
 }
 
+.ui-fixed-width {
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+
 .ui-panel .ui-panel-content {
     padding: 0em 0em !important;
 }
@@ -91,9 +97,15 @@
     text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
 }
 
+.ui-datatable-width {
+    width: 500px;
+    display: block;
+    text-align: center;
+}
+
 
 .ui-datatable-odd {
-    background: none repeat scroll 0 0 #F2F5F9;
+    background: none repeat scroll 0 0 #8c8e90;
 }
 
 .ui-dashboard-column {

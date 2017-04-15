@@ -157,6 +157,10 @@ public class BookServiceImpl implements BookService {
         System.out.println("jsonResponse: " + jsonResponse);
 
         List<Author> authors = extractAuthors(jsonResponse.getJsonArray("authors"));
+
+        System.out.println("authors: " + authors);
+
+
         List<LinkResource> hyperlinks = extractLinks(jsonResponse.getJsonArray("links"));
 
         Book book = new BookBuilder()
@@ -170,6 +174,8 @@ public class BookServiceImpl implements BookService {
                 .setLink(jsonResponse.getString("link"))
                 .setHyperlinks(hyperlinks)
                 .createBook();
+
+        System.out.println("book: " + book);
 
         return book;
     }
@@ -218,6 +224,9 @@ public class BookServiceImpl implements BookService {
      */
     public List<Author> extractAuthors(JsonArray authorArray) {
         List<Author> authors = new ArrayList<>();
+
+        System.out.println("authorArray: " + authorArray);
+        System.out.println("authorArray size: " + authorArray.size());
 
         for (int j = 0; j < authorArray.size(); j++) {
             JsonObject jObject = authorArray.getJsonObject(j);
