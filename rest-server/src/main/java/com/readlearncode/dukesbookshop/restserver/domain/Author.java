@@ -2,6 +2,7 @@ package com.readlearncode.dukesbookshop.restserver.domain;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * @author Alex Theedom www.readlearncode.com
@@ -9,7 +10,6 @@ import java.io.Serializable;
  */
 @XmlRootElement
 public class Author implements Serializable {
-
 
     private String id;
     private String firstName;
@@ -55,5 +55,31 @@ public class Author implements Serializable {
 
     public void setBlogURL(String blogURL) {
         this.blogURL = blogURL;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Author author = (Author) o;
+        return Objects.equals(id, author.id) &&
+                Objects.equals(firstName, author.firstName) &&
+                Objects.equals(lastName, author.lastName) &&
+                Objects.equals(blogURL, author.blogURL);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, blogURL);
+    }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "id='" + id + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", blogURL='" + blogURL + '\'' +
+                '}';
     }
 }
