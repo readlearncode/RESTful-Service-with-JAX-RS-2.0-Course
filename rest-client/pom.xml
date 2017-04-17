@@ -26,14 +26,9 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <primefaces.version>6.0</primefaces.version>
-        <ui-lightness.version>1.0.10</ui-lightness.version>
-        <javax.websocket-api.version>1.1</javax.websocket-api.version>
-        <tyrus-server.version>1.1</tyrus-server.version>
-        <tyrus-container-grizzly.version>1.1</tyrus-container-grizzly.version>
-        <javax.json.version>1.0.4</javax.json.version>
         <java.version>1.8</java.version>
-        <arquillian-bom.version>1.1.11.Final</arquillian-bom.version>
         <javaee-api.version>7.0</javaee-api.version>
+        <all-themes.version>1.0.10</all-themes.version>
     </properties>
 
 
@@ -43,19 +38,6 @@
             <url>http://repository.primefaces.org</url>
         </repository>
     </repositories>
-
-    <dependencyManagement>
-        <!-- Arquillian BOM used to reduce collision between testing dependecies. -->
-        <dependencies>
-            <dependency>
-                <groupId>org.jboss.arquillian</groupId>
-                <artifactId>arquillian-bom</artifactId>
-                <version>${arquillian-bom.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
 
@@ -81,34 +63,7 @@
         <dependency>
             <groupId>org.primefaces.themes</groupId>
             <artifactId>all-themes</artifactId>
-            <version>1.0.10</version>
-        </dependency>
-
-        <!--<dependency>-->
-            <!--<groupId>org.primefaces.themes</groupId>-->
-            <!--<artifactId>ui-lightness</artifactId>-->
-            <!--<version>${ui-lightness.version}</version>-->
-        <!--</dependency>-->
-
-        <!-- Test dependendencies -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-container</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- Resolvers are needed in the Arquillian tests -->
-        <dependency>
-            <groupId>org.jboss.shrinkwrap.resolver</groupId>
-            <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
-            <scope>test</scope>
+            <version>${all-themes.version}</version>
         </dependency>
 
     </dependencies>
