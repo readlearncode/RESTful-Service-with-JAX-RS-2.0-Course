@@ -24,9 +24,6 @@ public class BookRepositoryBean implements BookRepository {
 
     @Override
     public Book saveBook(final Book book) {
-
-        System.out.println("book: " + book);
-
         if (book.getImageFileName().length() == 0) {
             book.setImageFileName(IMAGE_LOCATION.concat("no_image.png"));
         }
