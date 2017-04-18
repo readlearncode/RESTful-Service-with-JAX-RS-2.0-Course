@@ -5,6 +5,7 @@ import com.readlearncode.dukesbookshop.restserver.infrastructure.BookRepository;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.GenericEntity;
@@ -22,6 +23,7 @@ public class BookResource {
     @EJB
     private BookRepository bookRepository;
 
+    @GET
     public Response getAllBook(){
         List<Book> books = bookRepository.getAll();
         GenericEntity<List<Book>> bookWrapper = new GenericEntity<List<Book>>(books){};
@@ -31,6 +33,6 @@ public class BookResource {
     @POST
     public Response saveBook(final Book book){
         Book persistedBook = bookRepository.saveBook(book);
-        return Response.status(Response.Status.OK).entity(persistedBook).build();
+        return Response.ok(persistedBook).build();
     }
 }

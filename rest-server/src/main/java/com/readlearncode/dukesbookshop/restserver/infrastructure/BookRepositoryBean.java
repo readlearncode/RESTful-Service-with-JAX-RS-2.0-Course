@@ -32,7 +32,6 @@ public class BookRepositoryBean implements BookRepository {
         }
         authorRepository.saveAuthors(book.getAuthors());
         books.put(book.getId(), book);
-        // TODO: check if author already exists and if not, create him/her
         return book;
     }
 
