@@ -1,4 +1,4 @@
-package com.readlearncode.dukesbookshop.restserver.infrastructure.Exceptions;
+package com.readlearncode.dukesbookshop.restserver.infrastructure.exceptions;
 
 /**
  * Source code github.com/readlearncode

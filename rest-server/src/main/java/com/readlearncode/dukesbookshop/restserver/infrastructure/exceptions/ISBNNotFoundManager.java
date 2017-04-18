@@ -1,4 +1,4 @@
-package com.readlearncode.dukesbookshop.restserver.infrastructure.Exceptions;
+package com.readlearncode.dukesbookshop.restserver.infrastructure.exceptions;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;

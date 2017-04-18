@@ -1,4 +1,4 @@
-package com.readlearncode.dukesbookshop.restserver.infrastructure.Exceptions;
+package com.readlearncode.dukesbookshop.restserver.infrastructure.exceptions;
 
 import javax.validation.ConstraintViolationException;
 import javax.ws.rs.core.Response;

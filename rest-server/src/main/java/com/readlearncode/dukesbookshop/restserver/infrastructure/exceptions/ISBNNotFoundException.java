@@ -1,4 +1,4 @@
-package com.readlearncode.dukesbookshop.restserver.infrastructure.Exceptions;
+package com.readlearncode.dukesbookshop.restserver.infrastructure.exceptions;
 
 /**
  * Source code github.com/readlearncode
@@ -11,7 +11,7 @@ public class ISBNNotFoundException extends Exception{
     private String message;
 
     public ISBNNotFoundException(){
-        this.message = "ISBN number not found";
+        this.message = "ISBN not found";
     }
 
     public ISBNNotFoundException(String message){
