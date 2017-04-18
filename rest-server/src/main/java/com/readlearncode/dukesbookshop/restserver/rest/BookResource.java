@@ -32,6 +32,8 @@ public class BookResource {
     }
 
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response saveBook(final Book book){
         Book persistedBook = bookRepository.saveBook(book);
         return Response.status(Response.Status.OK).entity(persistedBook).build();
@@ -39,6 +41,7 @@ public class BookResource {
 
     @GET
     @Path("{isbn: \\d{9}[\\d|X]$}")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getBookByIsbn(final @PathParam("isbn") String isbn){
        Optional<Book> book = bookRepository.getByISBN(isbn);
         if(book.isPresent()){
