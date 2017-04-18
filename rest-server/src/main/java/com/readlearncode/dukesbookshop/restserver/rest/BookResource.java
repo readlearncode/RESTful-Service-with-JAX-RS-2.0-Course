@@ -2,6 +2,7 @@ package com.readlearncode.dukesbookshop.restserver.rest;
 
 import com.readlearncode.dukesbookshop.restserver.domain.Book;
 import com.readlearncode.dukesbookshop.restserver.infrastructure.BookRepository;
+import com.readlearncode.dukesbookshop.restserver.infrastructure.exceptions.ISBNNotFoundException;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -42,12 +43,12 @@ public class BookResource {
     @GET
     @Path("{isbn: \\d{9}[\\d|X]$}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getBookByIsbn(final @PathParam("isbn") String isbn){
+    public Response getBookByIsbn(final @PathParam("isbn") String isbn) throws ISBNNotFoundException {
        Optional<Book> book = bookRepository.getByISBN(isbn);
         if(book.isPresent()){
             return Response.ok(book.get()).build();
         }
-    return Response.noContent().build();
+        throw new ISBNNotFoundException();
     }
 
 }
