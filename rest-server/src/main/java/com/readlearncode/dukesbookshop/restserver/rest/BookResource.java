@@ -41,7 +41,6 @@ public class BookResource {
 
     @GET
     @Path("{isbn: \\d{9}[\\d|X]$}")
-    @Produces(MediaType.APPLICATION_JSON)
     public Response getBookByIsbn(final @PathParam("isbn") String isbn){
        Optional<Book> book = bookRepository.getByISBN(isbn);
         if(book.isPresent()){
