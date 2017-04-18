@@ -25,6 +25,7 @@ public class BookResource {
     @EJB
     private BookRepository bookRepository;
 
+    @GET
     public Response getAllBook(){
         List<Book> books = bookRepository.getAll();
         GenericEntity<List<Book>> bookWrapper = new GenericEntity<List<Book>>(books){};
