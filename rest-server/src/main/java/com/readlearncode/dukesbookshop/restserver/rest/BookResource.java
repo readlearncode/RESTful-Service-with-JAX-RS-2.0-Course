@@ -7,6 +7,7 @@ import com.readlearncode.dukesbookshop.restserver.infrastructure.exceptions.ISBN
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.util.List;
@@ -38,7 +39,7 @@ public class BookResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response saveBook(final Book book) {
+    public Response saveBook(@Valid final Book book) {
         Book persistedBook = bookRepository.saveBook(book);
         return Response.status(Response.Status.OK).entity(persistedBook).build();
     }

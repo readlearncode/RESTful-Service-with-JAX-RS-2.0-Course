@@ -1,5 +1,6 @@
 package com.readlearncode.dukesbookshop.restserver.domain;
 
+import javax.validation.constraints.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,18 +18,36 @@ public class Book extends Hypermedia implements Serializable {
     private static final long serialVersionUID = 1L;
     private static final String IMAGE_LOCATION = "/images/covers/";
 
+    @Size(min = 10, max = 10, message = "ISBN should be 10 characters")
     private String id;
+
+    @Size(min = 5)
     private String title;
+
+    @Size(min = 20)
     private String description;
-    private List<Author> authors;
+
+    @Size(min = 1)
+    private ArrayList<Author> authors = new ArrayList<>();
+
+    @DecimalMin("0.00")
     private Float price;
+
+    @NotNull
     private String imageFileName;
+
+    @NotNull
+    @Pattern(regexp="^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$")
     private String link;
+
+    @Past
     private Date published;
 
-    public Book(){}
 
-    public Book(String id, String title, String description, List<Author> authors, Float price, String imageFileName, String link, Date published) {
+    public Book() {
+    }
+
+    public Book(String id, String title, String description, ArrayList<Author> authors, Float price, String imageFileName, String link, Date published) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -51,7 +70,7 @@ public class Book extends Hypermedia implements Serializable {
         this.description = description;
     }
 
-    public void setAuthors(List<Author> authors) {
+    public void setAuthors(ArrayList<Author> authors) {
         this.authors = authors;
     }
 
@@ -83,7 +102,7 @@ public class Book extends Hypermedia implements Serializable {
         return description;
     }
 
-    public List<Author> getAuthors() {
+    public ArrayList<Author> getAuthors() {
         return authors;
     }
 
