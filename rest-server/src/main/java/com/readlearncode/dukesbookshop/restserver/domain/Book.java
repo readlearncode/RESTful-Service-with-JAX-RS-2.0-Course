@@ -20,7 +20,7 @@ public class Book extends Hypermedia implements Serializable {
     private String id;
     private String title;
     private String description;
-    private List<Author> authors;
+    private ArrayList<Author> authors;
     private Float price;
     private String imageFileName;
     private String link;
@@ -28,7 +28,7 @@ public class Book extends Hypermedia implements Serializable {
 
     public Book(){}
 
-    public Book(String id, String title, String description, List<Author> authors, Float price, String imageFileName, String link, Date published) {
+    public Book(String id, String title, String description, ArrayList<Author> authors, Float price, String imageFileName, String link, Date published) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -51,7 +51,7 @@ public class Book extends Hypermedia implements Serializable {
         this.description = description;
     }
 
-    public void setAuthors(List<Author> authors) {
+    public void setAuthors(ArrayList<Author> authors) {
         this.authors = authors;
     }
 
@@ -83,7 +83,7 @@ public class Book extends Hypermedia implements Serializable {
         return description;
     }
 
-    public List<Author> getAuthors() {
+    public ArrayList<Author> getAuthors() {
         return authors;
     }
 
