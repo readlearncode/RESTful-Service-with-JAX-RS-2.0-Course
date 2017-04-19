@@ -9,7 +9,7 @@ import java.util.Objects;
  * @version 1.0
  */
 @XmlRootElement
-public class Author implements Serializable {
+public class Author extends Hypermedia implements Serializable {
 
     private String id;
     private String firstName;

@@ -65,7 +65,6 @@ public class BootstrapData {
                             .setPrice(0.20f)
                             .setImageFileName(API_URL + IMAGE_LOCATION + "the_thief_of_time.jpg")
                             .addAuthor(meek)
-                            .addAuthor(fetlet)
                             .setPublished(dateFormat.parse("01-02-1930"))
                             .setLink("https://www.gutenberg.org/ebooks/28617")
                             .createBook());

@@ -12,7 +12,7 @@ import java.util.Objects;
  * @version 1.0
  */
 @XmlRootElement
-public class Book implements Serializable {
+public class Book extends Hypermedia implements Serializable {
 
     private String id;
     private String title;
