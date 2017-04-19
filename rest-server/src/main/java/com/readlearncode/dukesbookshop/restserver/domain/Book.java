@@ -14,6 +14,9 @@ import java.util.Objects;
 @XmlRootElement
 public class Book extends Hypermedia implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    private static final String IMAGE_LOCATION = "/images/covers/";
+
     private String id;
     private String title;
     private String description;
@@ -31,7 +34,7 @@ public class Book extends Hypermedia implements Serializable {
         this.description = description;
         this.authors = authors;
         this.price = price;
-        this.imageFileName = imageFileName;
+        this.imageFileName = imageFileName.length() == 0 ? IMAGE_LOCATION.concat("no_image.png") : imageFileName;
         this.link = link;
         this.published = published;
     }
