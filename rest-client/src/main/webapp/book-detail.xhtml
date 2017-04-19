@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/WEB-INF/templates/common.xhtml">
+<ui:define name="title">Book Detail</ui:define>
+<ui:define name="content">
+
+<f:metadata>
+    <f:viewParam name="id" value="#{bookManager.id}"/>
+    <f:viewAction action="#{bookManager.onLoad}"/>
+</f:metadata>
+
+    <p:panelGrid columns="2" styleClass="ui-panelgrid-width">
+
+        <f:facet name="header">
+
+            <h:outputLink target="_blank" value="#{bookManager.book.imageFileName}">
+                <p:graphicImage title="#{bookManager.book.title}" url="#{bookManager.book.imageFileName}" width="200" height="250"
+                                alt="#{bookManager.book.title}"/>
+            </h:outputLink>
+        </f:facet>
+
+        <h:outputText value="Title"/>
+        <h:outputText value="#{bookManager.book.title}"/>
+
+        <h:outputText value="By"/>
+
+        <h:outputLink target="_blank" value="#{bookManager.book.authors.get(0).blogURL}">
+            <h:outputText value="#{bookManager.book.authors.get(0).firstName} #{bookManager.book.authors.get(0).lastName}"/>
+        </h:outputLink>
+
+        <h:outputText value="Description"/>
+        <h:outputText value="#{bookManager.book.description}" styleClass="ui-fixed-width"/>
+
+        <h:outputText value="Published">
+            <h:outputText value="#{bookManager.book.published}"/>
+            <f:convertDateTime pattern="MM.yyyy"/>
+        </h:outputText>
+
+        <h:outputText value="Price"/>
+            <h:outputText value="#{bookManager.book.price}">
+            <f:convertNumber type="currency" currencySymbol="$" pattern="#0.00" minFractionDigits="2"/>
+        </h:outputText>
+
+        <h:outputText value="ISBN"/>
+        <h:outputText value="#{bookManager.book.id}"/>
+
+        <h:outputText value="Download"/>
+        <h:outputLink target="_blank" value="#{bookManager.book.link}">
+            <h:outputText value="Click Here"/>
+        </h:outputLink>
+
+    </p:panelGrid>
+
+
+    <h:form>
+        <h1>#{bookManager.book.title}</h1>
+        <p>#{bookManager.book.description}</p>
+    </h:form>
+
+
+</ui:define>
+</ui:composition>
+</html>
+
+

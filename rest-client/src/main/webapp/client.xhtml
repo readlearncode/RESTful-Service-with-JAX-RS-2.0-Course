@@ -1,0 +1,52 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="/WEB-INF/templates/common.xhtml">
+    <ui:define name="title">Client</ui:define>
+    <ui:define name="content">
+
+        <h:form id="form">
+            <p:carousel value="#{bookCatalogue.books}" headerText="Catalogue" var="book" itemStyle="text-align:center"
+                        responsive="true">
+                <p:panelGrid columns="1" style="height: 300px;width:100%;margin:10px 10px" columnClasses="label,value" layout="grid"
+                             styleClass="ui-panelgrid-blank">
+                    <f:facet name="header">
+                        <h:outputLink target="_blank" value="#{book.imageFileName}">
+                        <p:graphicImage title="#{book.title}" url="#{book.imageFileName}" width="100" height="125"
+                                        alt="#{book.title}"/>
+                        </h:outputLink>
+                    </f:facet>
+
+                    <h:outputText value="#{book.title}"/>
+
+
+                    <!--<h:outputText value="by "/>-->
+                    <!--<ui:repeat value="#{book.authors}" var="author">-->
+                        <!--<h:outputText value="#{author.firstName} #{author.lastName}"/>-->
+                    <!--</ui:repeat>-->
+
+                    <h:outputText value="#{book.price}">
+                        <f:convertNumber type="currency" currencySymbol="$" pattern="#0.00" minFractionDigits="2"/>
+                    </h:outputText>
+
+                    <h:outputLink value="book-detail.xhtml">
+                        <f:param name="id" value="#{book.id}"/>
+                        Book Details
+                    </h:outputLink>
+
+                </p:panelGrid>
+
+                <f:facet name="footer">
+                    In total there are #{fn:length(bookBean.books)} books.
+                </f:facet>
+            </p:carousel>
+        </h:form>
+
+    </ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,57 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="/WEB-INF/templates/common.xhtml">
+    <ui:define name="title">Admin</ui:define>
+    <ui:define name="content">
+        <!--<f:metadata>-->
+        <!--<f:event type="preRenderView" listener="#{BookCatalogue.getBooks()}"/>-->
+        <!--</f:metadata>-->
+
+        <p:dataTable var="book" value="#{bookCatalogue.books}" styleClass="ui-datatable-width">
+
+            <p:column headerText="Title">
+                <h:outputText value="#{book.title}"/>
+            </p:column>
+
+            <p:column headerText="Author">
+                <h:outputText value="by "/>
+                <ui:repeat value="#{book.authors}" var="author">
+                    <h:outputText value="#{author.firstName} #{author.lastName}"/>
+                </ui:repeat>
+            </p:column>
+
+            <p:column headerText="Price">
+                <h:outputText value="#{book.price}">
+                    <f:convertNumber type="currency" currencySymbol="$" pattern="#0.00" minFractionDigits="2"/>
+                </h:outputText>
+            </p:column>
+
+            <p:column headerText="Id">
+                <h:outputText value="#{book.id}"/>
+            </p:column>
+
+
+            <p:column headerText="Published">
+                <h:outputText value="#{book.published}"/>
+            </p:column>
+
+            <p:column headerText="Action">
+                <h:form>
+                    <h:commandLink value="delete" action="#{bookManager.delete(book.id)}"/>
+                </h:form>
+                <!--<h:outputLink value="book-edit.xhtml">-->
+                <!--<f:param name="id" value="#{book.id}"/>-->
+                <!--Edit Book-->
+                <!--</h:outputLink>-->
+
+            </p:column>
+        </p:dataTable>
+    </ui:define>
+</ui:composition>
+</html>
