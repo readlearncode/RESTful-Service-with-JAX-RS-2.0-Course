@@ -59,7 +59,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("1239875824")
+                            .setId("1234567890")
                             .setTitle("The Thief of Time")
                             .setDescription("HARVEY WINSTON, paying teller of the First National Bank of Chicago, stripped the band from a bundle of twenty dollar bills, counted out seventeen of them and added them to the pile on the counter before him.")
                             .setPrice(0.20f)
@@ -73,7 +73,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("6983458724")
+                            .setId("3017700001")
                             .setTitle("Astounding Stories of Super Science")
                             .setDescription("Commander John Hanson relates an interplanetary adventure illustrating the splendid Service spirit of the men of the Special Patrol.")
                             .setPrice(0.20f)
@@ -86,7 +86,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("588968547X")
+                            .setId("3201100001")
                             .setTitle("Special Delivery")
                             .setDescription("All Len had to hear was the old gag: \"We've never lost a father yet.\" His child was not even born and it was thoroughly unbearable!")
                             .setPrice(0.20f)
@@ -100,7 +100,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("6958628754")
+                            .setId("322120000X")
                             .setTitle("Clean Break")
                             .setDescription("A veteran veterinarian might have vamoosed—but Watts had to help any sick animal....!")
                             .setPrice(0.20f)
@@ -114,7 +114,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("1159638459")
+                            .setId("323270000Y")
                             .setTitle("The Seventh Order")
                             .setDescription("A veteran veterinarian might have vamoosed—but Watts had to help any sick animal....!")
                             .setPrice(0.20f)
@@ -127,7 +127,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("2526987585")
+                            .setId("3234400001")
                             .setTitle("Pet Farm")
                             .setDescription("The next worst thing to hell is being shanghaied into the Paradise of an alien planet!")
                             .setPrice(0.20f)
@@ -140,7 +140,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("569835759X")
+                            .setId("5183200001")
                             .setTitle("The Place Where Chicago Was")
                             .setDescription("Well, they finally got rid of war. For the first time there was peace on Earth—since the only possible victims were the killers themselves!")
                             .setPrice(0.20f)
@@ -152,7 +152,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("6986975426")
+                            .setId("5157000001")
                             .setTitle("Cry Snooker")
                             .setDescription("At the breakfast table next morning George gave her the diamond cocktail ring she'd drooled over. Rosy gave him the self-winding time piece he'd slobbered over in Cellini's window.")
                             .setPrice(0.20f)
@@ -166,7 +166,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("8879585785")
+                            .setId("5075300001")
                             .setTitle("Later Than You Think")
                             .setDescription("It's much later. The question is ... how late?")
                             .setPrice(0.20f)
@@ -180,7 +180,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("4568744125")
+                            .setId("3198000001")
                             .setTitle("Rough Translation")
                             .setDescription("Don't be ashamed if you can't blikkel any more. It's because you couldn't help framishing.")
                             .setPrice(0.20f)
@@ -193,7 +193,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("4587874584")
+                            .setId("3234500001")
                             .setTitle("The Animated Pinup")
                             .setDescription("To make it clear how normal everything was when the evening started out, I'll let you in at the time Willy phoned me.")
                             .setPrice(0.20f)
@@ -206,7 +206,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("1236985748")
+                            .setId("3282000001")
                             .setTitle("World Beyond Pluto")
                             .setDescription("They loaded the over-age spaceship at night because Triton's one spaceport was too busy with the oreships from Neptune during the day to handle it.")
                             .setPrice(0.35f)
@@ -219,7 +219,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("9689744589")
+                            .setId("4099100001")
                             .setTitle("The Butterfly Kiss")
                             .setDescription("When Sykin Supcel was kidnaped, no one on Earth was less surprised than Dr. Horace Wilton, Chief Military Psychologist of the Solar Navy.")
                             .setPrice(0.35f)
@@ -232,7 +232,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("5899871214")
+                            .setId("5092400001")
                             .setTitle("Sweet Tooth")
                             .setDescription("The aliens were quite impressed by Earth's technical marvels—they found them just delicious!")
                             .setPrice(0.35f)
@@ -245,7 +245,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("1247985684")
+                            .setId("5133100001")
                             .setTitle("Swenson, Dispatcher")
                             .setDescription("There were no vacuums in Space Regulations, so Swenson—well, you might say he knew how to plot courses through sub-ether legality!")
                             .setPrice(0.35f)
@@ -258,7 +258,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("7877896588")
+                            .setId("5143200001")
                             .setTitle("Perfect Answer")
                             .setDescription("Getting there may be half the fun ... but it is also all of a society's chance of survival!")
                             .setPrice(0.35f)
@@ -271,7 +271,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("100255852X")
+                            .setId("514930000X")
                             .setTitle("Kreativity For Kats")
                             .setDescription("They are the aliens among us—and their ways and wonders are stranger than extraterrestrials!")
                             .setPrice(0.50f)
@@ -284,7 +284,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("5899858871")
+                            .setId("5169800001")
                             .setTitle("The Little Man Who Wasn't Quite")
                             .setDescription("You could say Jonesy and/or I were not all there, but I don't see it that way. How much of Stanley was or wasn't there?")
                             .setPrice(0.50f)
@@ -297,7 +297,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("1112588089")
+                            .setId("5257400001")
                             .setTitle("Third Planet")
                             .setDescription("The aliens had lost their lives to nuclear war—but their loss might be the salvation of Earth!")
                             .setPrice(0.50f)
@@ -310,7 +310,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("5500898544")
+                            .setId("5305900001")
                             .setTitle("To Save Earth")
                             .setDescription("The life of everyone on Earth depended on hich they had long ago lost!")
                             .setPrice(0.50f)
