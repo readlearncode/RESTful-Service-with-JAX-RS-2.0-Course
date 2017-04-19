@@ -47,10 +47,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> getBooks() {
-        WebTarget target = client.target(BOOKS_ENDPOINT);
-        Response response = target.request(MediaType.APPLICATION_JSON).get();
-        List<Book> cachedBooks = response.readEntity(new GenericType<ArrayList<Book>>(){});
-        return Collections.unmodifiableList(cachedBooks);
+        return null;
     }
 
     @PreDestroy
