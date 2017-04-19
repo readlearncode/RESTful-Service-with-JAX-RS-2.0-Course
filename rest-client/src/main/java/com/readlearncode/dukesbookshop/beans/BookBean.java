@@ -37,6 +37,4 @@ public class BookBean {
         bookService.deleteBook(isbn);
         return "success?faces-redirect=true&includeViewParams=true";
     }
-
-
 }
