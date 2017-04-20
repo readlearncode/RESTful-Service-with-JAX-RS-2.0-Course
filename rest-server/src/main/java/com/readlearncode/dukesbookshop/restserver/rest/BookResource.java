@@ -78,13 +78,9 @@ public class BookResource {
         throw new ISBNNotFoundException();
     }
 
-    @DELETE
-    @Path("{isbn: \\d{9}[\\d|X]$}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteBook(final @PathParam("isbn") String isbn) throws ISBNNotFoundException{
-        return Response
-                .ok(bookRepository.deleteBook(isbn).orElseThrow(ISBNNotFoundException::new))
-                .build();
+
+    public Response deleteBook(final String isbn) throws ISBNNotFoundException {
+        return null;
     }
 
 }
