@@ -39,10 +39,9 @@
         <h:outputText value="Description"/>
         <h:outputText value="#{bookManager.book.description}" styleClass="ui-fixed-width"/>
 
-        <h:outputText value="Published">
-            <h:outputText value="#{bookManager.book.published}"/>
-            <f:convertDateTime pattern="MM.yyyy"/>
-        </h:outputText>
+        <h:outputText value="Published"/>
+        <h:outputText value="#{bookManager.book.published}"/>
+
 
         <h:outputText value="Price"/>
             <h:outputText value="#{bookManager.book.price}">

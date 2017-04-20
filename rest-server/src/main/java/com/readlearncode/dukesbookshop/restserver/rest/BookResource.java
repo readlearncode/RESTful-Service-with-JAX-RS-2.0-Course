@@ -31,7 +31,6 @@ public class BookResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllBook() {
         List<Book> books = bookRepository.getAll();
-
         for(Book book : books){
             Link self = Link.fromUri(uriInfo.getBaseUriBuilder()
                     .path(getClass())
@@ -55,7 +54,6 @@ public class BookResource {
             book.addLink(selfLink);
             book.addLink(deleteLink);
         }
-
         GenericEntity<List<Book>> bookWrapper = new GenericEntity<List<Book>>(books) {
         };
         return Response.ok(bookWrapper).build();
@@ -103,12 +101,14 @@ public class BookResource {
         throw new ISBNNotFoundException();
     }
 
+
     @DELETE
     @Path("{isbn: \\d{9}[\\d|X]$}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteBook(final @PathParam("isbn") String isbn) throws ISBNNotFoundException{
-        return Response
-                .ok(bookRepository.deleteBook(isbn).orElseThrow(ISBNNotFoundException::new))
+    public Response deleteBook(final @PathParam("isbn") String isbn) throws ISBNNotFoundException {
+        return Response.ok(bookRepository
+                .deleteBook(isbn)
+                .orElseThrow(ISBNNotFoundException::new))
                 .build();
     }
 

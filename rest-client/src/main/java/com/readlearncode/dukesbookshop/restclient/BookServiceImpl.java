@@ -23,7 +23,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import java.util.stream.Collectors;
 
 /**
  * Source code github.com/readlearncode
@@ -85,7 +84,35 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book getBook(String id) {
-        return null;
+        WebTarget target = client.target(BOOKS_ENDPOINT + "/" + id);
+        Future<Response> bookCall = target.request(MediaType.APPLICATION_JSON).async().get();
+
+        while(!bookCall.isDone());
+
+        Response response = null;
+        try {
+            response = bookCall.get(60_000, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            e.printStackTrace();
+        }
+
+        JsonObject jsonResponse = response.readEntity(JsonObject.class);
+        List<Author> authors = extractAuthors(jsonResponse.getJsonArray("authors"));
+        List<LinkResource> hyperlinks = extractLinks(jsonResponse.getJsonArray("links"));
+
+        Book book = new BookBuilder()
+                .setId(jsonResponse.getString("id"))
+                .setTitle(jsonResponse.getString("title"))
+                .setDescription(jsonResponse.getString("description"))
+                .setPrice((float) jsonResponse.getInt("price"))
+                .setImageFileName(jsonResponse.getString("imageFileName"))
+                .setAuthors(authors)
+                .setPublished(jsonResponse.getString("published"))
+                .setLink(jsonResponse.getString("link"))
+                .setHyperlinks(hyperlinks)
+                .createBook();
+
+        return book;
     }
 
     @Override
@@ -103,7 +130,6 @@ public class BookServiceImpl implements BookService {
                 }
             }
         }
-
     }
 
     @Override
