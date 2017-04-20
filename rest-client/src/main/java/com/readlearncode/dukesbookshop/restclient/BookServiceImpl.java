@@ -104,7 +104,7 @@ public class BookServiceImpl implements BookService {
                 .setId(jsonResponse.getString("id"))
                 .setTitle(jsonResponse.getString("title"))
                 .setDescription(jsonResponse.getString("description"))
-                .setPrice((float) jsonResponse.getInt("price"))
+                .setPrice((float) jsonResponse.getJsonNumber("price").doubleValue())
                 .setImageFileName(jsonResponse.getString("imageFileName"))
                 .setAuthors(authors)
                 .setPublished(jsonResponse.getString("published"))
