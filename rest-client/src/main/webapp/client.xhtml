@@ -24,6 +24,11 @@
 
                     <h:outputText value="#{book.title}"/>
 
+                    <h:outputText value="by "/>
+                    <ui:repeat value="#{book.authors}" var="author">
+                        <h:outputText value="#{author.firstName} #{author.lastName}"/>
+                    </ui:repeat>
+
                     <h:outputText value="#{book.price}">
                         <f:convertNumber type="currency" currencySymbol="$" pattern="#0.00" minFractionDigits="2"/>
                     </h:outputText>

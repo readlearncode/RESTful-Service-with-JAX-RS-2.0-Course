@@ -23,6 +23,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.stream.Collectors;
 
 /**
  * Source code github.com/readlearncode
@@ -89,6 +90,20 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void deleteBook(String isbn) {
+        for(Book book : cachedBooks){
+            if(book.getId().equals(isbn)){
+                for(LinkResource linkResource : book.getLinks()){
+                    if(linkResource.getRel().equals("delete")){
+                        String uri = linkResource.getUri();
+                        client.target(uri)
+                                .request(MediaType.APPLICATION_JSON)
+                                .delete();
+                        break;
+                    }
+                }
+            }
+        }
+
     }
 
     @Override

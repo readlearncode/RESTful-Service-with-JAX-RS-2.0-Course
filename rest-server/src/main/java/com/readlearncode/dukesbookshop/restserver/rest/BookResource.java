@@ -31,6 +31,31 @@ public class BookResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllBook() {
         List<Book> books = bookRepository.getAll();
+
+        for(Book book : books){
+            Link self = Link.fromUri(uriInfo.getBaseUriBuilder()
+                    .path(getClass())
+                    .path(getClass(), "getBookByIsbn")
+                    .build(book.getId()))
+                    .rel("self")
+                    .type("GET")
+                    .build();
+
+            Link delete = Link.fromUri(uriInfo.getBaseUriBuilder()
+                    .path(getClass())
+                    .path(getClass(), "deleteBook")
+                    .build(book.getId()))
+                    .rel("delete")
+                    .type("DELETE")
+                    .build();
+
+            LinkResource selfLink = new LinkResource(self);
+            LinkResource deleteLink = new LinkResource(delete);
+
+            book.addLink(selfLink);
+            book.addLink(deleteLink);
+        }
+
         GenericEntity<List<Book>> bookWrapper = new GenericEntity<List<Book>>(books) {
         };
         return Response.ok(bookWrapper).build();
