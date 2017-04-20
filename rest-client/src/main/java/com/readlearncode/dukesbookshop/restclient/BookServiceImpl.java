@@ -49,7 +49,31 @@ public class BookServiceImpl implements BookService {
     public List<Book> getBooks() {
         WebTarget target = client.target(BOOKS_ENDPOINT);
         Response response = target.request(MediaType.APPLICATION_JSON).get();
-        cachedBooks = response.readEntity(new GenericType<ArrayList<Book>>() {});
+
+        cachedBooks.clear();
+
+        JsonArray jsonArray = response.readEntity(JsonArray.class);
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JsonObject bookJson = jsonArray.getJsonObject(i);
+
+            List<LinkResource> hyperlinks = extractLinks(bookJson.getJsonArray("links"));
+            List<Author> authors = extractAuthors(bookJson.getJsonArray("authors"));
+
+            Book book = new BookBuilder()
+                    .setId(bookJson.getString("id"))
+                    .setTitle(bookJson.getString("title"))
+                    .setDescription(bookJson.getString("description"))
+                    .setPrice((float) bookJson.getJsonNumber("price").doubleValue())
+                    .setImageFileName(bookJson.getString("imageFileName"))
+                    .setAuthors(authors)
+                    .setPublished(bookJson.getString("published"))
+                    .setLink(bookJson.getString("link"))
+                    .setHyperlinks(hyperlinks)
+                    .createBook();
+
+            cachedBooks.add(book);
+        }
+
         return Collections.unmodifiableList(cachedBooks);
     }
 
@@ -58,7 +82,6 @@ public class BookServiceImpl implements BookService {
         client.close();
     }
 
-
     @Override
     public Book getBook(String id) {
         return null;
@@ -66,7 +89,6 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void deleteBook(String isbn) {
-
     }
 
     @Override
@@ -74,10 +96,48 @@ public class BookServiceImpl implements BookService {
         return null;
     }
 
-    @Override
-    public List<Author> extractAuthors(JsonArray authorArray) {
-        return null;
+
+    /**
+     * Extracts the links from the json object
+     *
+     * @param linkArray the JSON array that contains the link list
+     * @return list of links
+     */
+    private List<LinkResource> extractLinks(JsonArray linkArray) {
+
+        List<LinkResource> links = new ArrayList<>();
+
+        for (int j = 0; j < linkArray.size(); j++) {
+            JsonObject jObject = linkArray.getJsonObject(j);
+            String rel = jObject.getString("rel", "");
+            String type = jObject.getString("type", "");
+            String uri = jObject.getString("uri", "");
+            links.add(new LinkResource(rel, type, uri));
+        }
+
+        return Collections.unmodifiableList(links);
     }
 
+
+    /**
+     * Extracts the author list form the json object
+     *
+     * @param authorArray the JSON Array that contains the author list
+     * @return list of authors
+     */
+    public List<Author> extractAuthors(JsonArray authorArray) {
+        List<Author> authors = new ArrayList<>();
+
+        for (int j = 0; j < authorArray.size(); j++) {
+            JsonObject jObject = authorArray.getJsonObject(j);
+            String id = jObject.getString("id", "");
+            String firstName = jObject.getString("firstName", "");
+            String lastName = jObject.getString("lastName", "");
+            String blogURL = jObject.getString("blogURL", "");
+            authors.add(new Author(id, firstName, lastName, blogURL));
+        }
+
+        return Collections.unmodifiableList(authors);
+    }
 
 }
