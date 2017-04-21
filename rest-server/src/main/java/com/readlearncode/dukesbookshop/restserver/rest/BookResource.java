@@ -1,5 +1,6 @@
 package com.readlearncode.dukesbookshop.restserver.rest;
 
+import com.readlearncode.dukesbookshop.restserver.domain.Author;
 import com.readlearncode.dukesbookshop.restserver.domain.Book;
 import com.readlearncode.dukesbookshop.restserver.infrastructure.BookRepository;
 
@@ -22,6 +23,7 @@ public class BookResource {
 
     @EJB
     private BookRepository bookRepository;
+
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -48,6 +50,23 @@ public class BookResource {
             return Response.ok(book.get()).build();
         }
     return Response.noContent().build();
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{isbn: \\d{9}[\\d|X]$}")
+    public Response updateBook(final Book book, final @PathParam("isbn") String isbn) {
+        Book bookPersisted = bookRepository.saveBook(book);
+        return Response.ok(bookPersisted).build();
+    }
+
+    @GET
+    @Path("{isbn: \\d{9}[\\d|X]$}/authors")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAuthorsForBook(final @PathParam("isbn") String isbn) {
+        List<Author> authors = bookRepository.getByISBN(isbn).get().getAuthors();
+        return Response.ok(authors).build();
     }
 
 }
