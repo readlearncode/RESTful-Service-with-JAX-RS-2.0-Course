@@ -31,12 +31,15 @@ public class AuthorResource {
     }
 
 
-
     @GET
-    @Path("/id/{id}")
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAuthor(final @PathParam("id") String id) throws AuthorIDNotRecognisedException {
-        Author author =  authorRepository.getById(id).orElseThrow(AuthorIDNotRecognisedException::new);
+
+        Author author =  authorRepository
+                                .getById(id)
+                                .orElseThrow(AuthorIDNotRecognisedException::new);
+
         return Response.ok(author).build();
     }
 
