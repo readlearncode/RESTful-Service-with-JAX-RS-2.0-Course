@@ -14,7 +14,7 @@
 hs_err_pid*
 
 /lib/
-/server/target/
-/client/target/
+/rest-server/target/
+/rest-client/target/
 /target/
 
