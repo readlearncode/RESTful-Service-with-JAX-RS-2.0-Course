@@ -7,7 +7,7 @@ import com.readlearncode.dukesbookshop.restserver.domain.LinkResource;
 import com.readlearncode.dukesbookshop.restserver.infrastructure.AuthorRepository;
 import com.readlearncode.dukesbookshop.restserver.infrastructure.BookRepository;
 import com.readlearncode.dukesbookshop.restserver.infrastructure.BookShopService;
-import com.readlearncode.dukesbookshop.restserver.infrastructure.Exceptions.ISBNNotFoundException;
+import com.readlearncode.dukesbookshop.restserver.infrastructure.exceptions.ISBNNotFoundException;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
