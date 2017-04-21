@@ -9,9 +9,9 @@ import javax.ws.rs.ext.Provider;
  * @version 1.0
  */
 @Provider
-public class ISBNExceptionNotFoundManager implements ExceptionMapper<ISBNNotFoundException> {
+public class AuthorIDNotRecognisedExceptionManager implements ExceptionMapper<AuthorIDNotRecognisedException> {
     @Override
-    public Response toResponse(ISBNNotFoundException exception) {
+    public Response toResponse(AuthorIDNotRecognisedException exception) {
         return Response.status(Response.Status.NO_CONTENT).build();
     }
 }

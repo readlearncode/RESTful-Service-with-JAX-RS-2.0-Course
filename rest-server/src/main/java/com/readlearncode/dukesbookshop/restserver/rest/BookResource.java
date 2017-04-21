@@ -1,5 +1,6 @@
 package com.readlearncode.dukesbookshop.restserver.rest;
 
+import com.readlearncode.dukesbookshop.restserver.domain.Author;
 import com.readlearncode.dukesbookshop.restserver.domain.Book;
 import com.readlearncode.dukesbookshop.restserver.domain.LinkResource;
 import com.readlearncode.dukesbookshop.restserver.infrastructure.BookRepository;
@@ -80,12 +81,27 @@ public class BookResource {
     @DELETE
     @Path("{isbn: \\d{9}[\\d|X]$}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteBook(final @PathParam("isbn") String isbn) throws ISBNNotFoundException{
+    public Response deleteBook(final @PathParam("isbn") String isbn) throws ISBNNotFoundException {
         return Response
                 .ok(bookRepository.deleteBook(isbn).orElseThrow(ISBNNotFoundException::new))
                 .build();
     }
 
 
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{isbn: \\d{9}[\\d|X]$}")
+    public Response updateBook(final Book book, final @PathParam("isbn") String isbn) {
+        Book bookPersisted = bookRepository.saveBook(book);
+        return Response.ok(bookPersisted).build();
+    }
 
+    @GET
+    @Path("{isbn: \\d{9}[\\d|X]$}/authors")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAuthorsForBook(final @PathParam("isbn") String isbn) {
+        List<Author> authors = bookRepository.getByISBN(isbn).get().getAuthors();
+        return Response.ok(authors).build();
+    }
 }
