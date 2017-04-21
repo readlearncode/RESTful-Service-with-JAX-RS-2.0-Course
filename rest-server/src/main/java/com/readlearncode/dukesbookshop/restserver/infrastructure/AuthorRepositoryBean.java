@@ -18,14 +18,12 @@ public class AuthorRepositoryBean implements AuthorRepository {
 
     @Override
     public Author saveAuthor(Author author) {
-        System.out.println(author);
         authors.put(author.getId(), author);
         return author;
     }
 
     @Override
     public List<Author> saveAuthors(List<Author> authors) {
-        System.out.println(authors);
         authors.forEach(this::saveAuthor);
         return authors;
     }

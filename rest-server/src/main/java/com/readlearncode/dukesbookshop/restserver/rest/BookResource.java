@@ -1,6 +1,5 @@
 package com.readlearncode.dukesbookshop.restserver.rest;
 
-import com.readlearncode.dukesbookshop.restserver.domain.Author;
 import com.readlearncode.dukesbookshop.restserver.domain.Book;
 import com.readlearncode.dukesbookshop.restserver.domain.LinkResource;
 import com.readlearncode.dukesbookshop.restserver.infrastructure.BookRepository;
@@ -31,8 +30,7 @@ public class BookResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllBook() {
         List<Book> books = bookRepository.getAll();
-        GenericEntity<List<Book>> bookWrapper = new GenericEntity<List<Book>>(books) {
-        };
+        GenericEntity<List<Book>> bookWrapper = new GenericEntity<List<Book>>(books) {};
         return Response.ok(bookWrapper).build();
     }
 
@@ -143,38 +141,4 @@ public class BookResource {
         return Response.ok(bookPersisted).build();
     }
 
-    @GET
-    @Path("{isbn: \\d{9}[\\d|X]$}/authors")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getAuthorsForBook(final @PathParam("isbn") String isbn) {
-        List<Author> authors = bookRepository.getByISBN(isbn).get().getAuthors();
-
-        for(Author author : authors) {
-
-            Link self = Link.fromUri(uriInfo.getBaseUriBuilder()
-                    .path(Author.class)
-                    .path(Author.class, "getAuthor")
-                    .build(author.getId()))
-                    .rel("self")
-                    .type("GET")
-                    .build();
-
-            Link delete = Link.fromUri(uriInfo.getBaseUriBuilder()
-                    .path(Author.class)
-                    .path(Author.class, "getAllAuthors")
-                    .build(author.getId()))
-                    .rel("all")
-                    .type("GET")
-                    .build();
-
-            LinkResource selfLink = new LinkResource(self);
-            LinkResource deleteLink = new LinkResource(delete);
-
-            author.addLink(selfLink);
-            author.addLink(deleteLink);
-
-        }
-
-        return Response.ok(authors).build();
-    }
 }
