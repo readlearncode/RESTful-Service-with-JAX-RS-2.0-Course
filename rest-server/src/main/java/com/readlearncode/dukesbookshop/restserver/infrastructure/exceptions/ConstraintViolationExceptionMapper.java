@@ -16,20 +16,15 @@ import java.util.stream.Collectors;
 public class ConstraintViolationExceptionMapper implements ExceptionMapper<ConstraintViolationException> {
 
     @Override
-//    @Produces(MediaType.APPLICATION_JSON)
     public Response toResponse(ConstraintViolationException exception) {
 
         final String message = exception.getConstraintViolations().stream()
-                .map(cv -> extractPropertyName(cv.getPropertyPath().toString()) + " : " + cv.getMessage())
+                .map(cv -> extractPropertyName(cv.getPropertyPath().toString())
+                        + " : " + cv.getMessage())
                 .collect(Collectors.joining(", "));
-
-//        final Map<String, String> errorResponse =
-//                exception.getConstraintViolations().stream()
-//                        .collect(Collectors.toMap(o -> o.getPropertyPath().toString(), o -> o.getMessage()));
-//
-//        return Response.status(Response.Status.BAD_REQUEST).entity(new DataIntegrityValidation(errorResponse)).build();
-
-        return Response.status(Response.Status.BAD_REQUEST).header("X-Validation-Failure", message).build();
+        return Response
+                .status(Response.Status.BAD_REQUEST)
+                .header("X-Validation-Failure", message).build();
     }
 
     private String extractPropertyName(String path) {

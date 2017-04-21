@@ -11,11 +11,10 @@ import java.util.List;
  * @version 1.0
  */
 @XmlRootElement
-public abstract class Hypermedia {
+public class Hypermedia {
 
     private List<LinkResource> links = new ArrayList<>();
 
-//    @XmlElement(name = "links")
     public List<LinkResource> getLinks() {
         return links;
     }

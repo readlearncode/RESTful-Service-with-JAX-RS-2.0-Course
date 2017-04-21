@@ -61,7 +61,7 @@ public class BootstrapData {
             // Create the books
             bookRepository.saveBook(
                     new BookBuilder()
-                            .setId("1239875824")
+                            .setId("1234567890")
                             .setTitle("The Thief of Time")
                             .setDescription("HARVEY WINSTON, paying teller of the First National Bank of Chicago, stripped the band from a bundle of twenty dollar bills, counted out seventeen of them and added them to the pile on the counter before him.")
                             .setPrice(0.20f)

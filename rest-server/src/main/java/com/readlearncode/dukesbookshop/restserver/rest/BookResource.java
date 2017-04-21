@@ -7,7 +7,7 @@ import com.readlearncode.dukesbookshop.restserver.domain.LinkResource;
 import com.readlearncode.dukesbookshop.restserver.infrastructure.AuthorRepository;
 import com.readlearncode.dukesbookshop.restserver.infrastructure.BookRepository;
 import com.readlearncode.dukesbookshop.restserver.infrastructure.BookShopService;
-import com.readlearncode.dukesbookshop.restserver.infrastructure.Exceptions.ISBNNotFoundException;
+import com.readlearncode.dukesbookshop.restserver.infrastructure.exceptions.ISBNNotFoundException;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -70,23 +70,9 @@ public class BookResource extends Hypermedia {
     @Path("{isbn: \\d{9}[\\d|X]$}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteBook(final @PathParam("isbn") String isbn) throws ISBNNotFoundException {
-
-//        Response response;
-//        try{
-//            response = Response.ok(bookRepository.deleteBook(isbn).get()).build();
-//        } catch (Exception e){
-//            response = Response.status(Response.Status.NOT_FOUND).build();
-//        }
-//        return response;
-
-//        try {
-//            return Response.ok(bookRepository.deleteBook(isbn)).build();
-//        } catch (Exception e) {
-//            throw new WebApplicationException(Response.Status.NO_CONTENT);
-//        }
-
         return Response
-                .ok(bookRepository.deleteBook(isbn).orElseThrow(ISBNNotFoundException::new))
+                .ok(bookRepository.deleteBook(isbn)
+                        .orElseThrow(ISBNNotFoundException::new))
                 .build();
     }
 

@@ -4,7 +4,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import static javax.ws.rs.core.Response.Status.NOT_FOUND;
+import static javax.ws.rs.core.Response.Status.NO_CONTENT;
 
 /**
  * Source code github.com/readlearncode
@@ -13,10 +13,10 @@ import static javax.ws.rs.core.Response.Status.NOT_FOUND;
  * @version 1.0
  */
 @Provider
-public class ISBNNotFoundManager implements ExceptionMapper<ISBNNotFoundException>{
+public class ISBNNotFoundExceptionManager implements ExceptionMapper<ISBNNotFoundException>{
 
     @Override
     public Response toResponse(ISBNNotFoundException exception) {
-        return Response.status(NOT_FOUND).build();
+        return Response.status(NO_CONTENT).build();
     }
 }

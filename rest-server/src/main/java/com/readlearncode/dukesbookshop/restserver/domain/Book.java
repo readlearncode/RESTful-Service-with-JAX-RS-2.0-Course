@@ -22,10 +22,10 @@ public class Book extends Hypermedia implements Serializable {
     @Size(min = 10, max = 10, message = "ISBN should be 10 characters")
     private String id;
 
-    @Size(min = 20)
+    @Size(min = 5)
     private String title;
 
-    @Size(min = 100)
+    @Size(min = 20)
     private String description;
 
     @Size(min = 1)
