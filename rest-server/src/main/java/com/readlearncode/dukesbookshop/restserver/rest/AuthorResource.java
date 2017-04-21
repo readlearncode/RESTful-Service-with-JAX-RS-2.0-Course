@@ -1,13 +1,12 @@
 package com.readlearncode.dukesbookshop.restserver.rest;
 
+import com.readlearncode.dukesbookshop.restserver.domain.Author;
 import com.readlearncode.dukesbookshop.restserver.infrastructure.AuthorRepository;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.validation.Valid;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -28,4 +27,11 @@ public class AuthorResource {
         return Response.ok(authorRepository.getAll()).build();
     }
 
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response saveAuthor(@Valid final Author author) {
+        Author persistedAuthor = authorRepository.saveAuthor(author);
+        return Response.status(Response.Status.OK).entity(persistedAuthor).build();
+    }
 }

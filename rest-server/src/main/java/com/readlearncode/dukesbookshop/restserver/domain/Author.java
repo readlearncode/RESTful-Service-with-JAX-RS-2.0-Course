@@ -1,5 +1,8 @@
 package com.readlearncode.dukesbookshop.restserver.domain;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Objects;
@@ -11,9 +14,17 @@ import java.util.Objects;
 @XmlRootElement
 public class Author extends Hypermedia implements Serializable {
 
+    @NotNull
     private String id;
+
+    @Size(min = 5)
     private String firstName;
+
+    @Size(min = 5)
     private String lastName;
+
+    @NotNull
+    @Pattern(regexp="^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$")
     private String blogURL;
 
     public Author(){}
