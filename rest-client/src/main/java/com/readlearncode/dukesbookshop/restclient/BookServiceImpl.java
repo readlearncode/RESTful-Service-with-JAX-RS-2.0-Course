@@ -9,7 +9,6 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.InvocationCallback;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Link;
 import javax.ws.rs.core.MediaType;
@@ -44,91 +43,89 @@ public class BookServiceImpl implements BookService {
         client = ClientBuilder.newClient();
     }
 
-    @Override
-    public List<Book> getBooks() {
-
-        List<Book> allBooks = new ArrayList<>();
-
-        WebTarget target = client.target(BOOKS_ENDPOINT);
-
-        Future<ArrayList<Book>> bookCall =
-                target.request(MediaType.APPLICATION_JSON).async().get(
-                        new InvocationCallback<ArrayList<Book>>() {
-
-                            @Override
-                            public void completed(ArrayList<Book> arrayListGenericType) {
-                                allBooks.addAll(arrayListGenericType);
-                                // populate cache with new books
-                                cachedBooks.clear();
-                                cachedBooks.addAll(arrayListGenericType);
-                            }
-
-                            @Override
-                            public void failed(Throwable throwable) {
-                                // use cached book list
-                                allBooks.addAll(cachedBooks);
-                            }
-                        });
-
-        while (!bookCall.isDone()) ;
-
-        System.out.println("AllBooks: " + allBooks);
-
-        return Collections.unmodifiableList(allBooks);
-    }
-
-
 //    @Override
 //    public List<Book> getBooks() {
 //
-//        allBooks = new ArrayList<>(); //  Fix this hack
+//        List<Book> allBooks = new ArrayList<>();
 //
 //        WebTarget target = client.target(BOOKS_ENDPOINT);
 //
-//        Response rep = target.request(MediaType.APPLICATION_JSON).get();
+//        Future<ArrayList<Book>> bookCall =
+//                target.request(MediaType.APPLICATION_JSON).async().get(
+//                        new InvocationCallback<ArrayList<Book>>() {
 //
-//        // If links are embedded in the HTTP Header, uncomment this code
-//        Set<Link> links = rep.getLinks();
-//        System.out.println("links: " + links);
+//                            @Override
+//                            public void completed(ArrayList<Book> arrayListGenericType) {
+//                                allBooks.addAll(arrayListGenericType);
+//                                // populate cache with new books
+//                                cachedBooks.clear();
+//                                cachedBooks.addAll(arrayListGenericType);
+//                            }
 //
-//        JsonArray response = rep.readEntity(JsonArray.class);
-////        List<Book> response = rep.readEntity(new GenericType<List<Book>>() {});
+//                            @Override
+//                            public void failed(Throwable throwable) {
+//                                // use cached book list
+//                                allBooks.addAll(cachedBooks);
+//                            }
+//                        });
 //
-//        System.out.println("response: " + response);
+//        while (!bookCall.isDone()) ;
 //
+//        System.out.println("AllBooks: " + allBooks);
 //
-////        JsonArray response        .get(JsonArray.class);
-////        Response response = target.request(MediaType.APPLICATION_JSON).get().getLinks();
-////        List<Book> allBooks = response.readEntity(new GenericType<ArrayList<Book>>(){});
-////        System.out.println("AllBooks: " + allBooks);
-//
-//
-//        System.out.println("JsonArray response: " + response);
-//
-//        for (int i = 0; i < response.size(); i++) {
-//            JsonObject bookJson = response.getJsonObject(i);
-//
-//            List<Author> authors = extractAuthors(bookJson.getJsonArray("authors"));
-//            List<LinkResource> hyperlinks = extractLinks(bookJson.getJsonArray("links"));
-//
-//            Book book = new BookBuilder()
-//                    .setId(bookJson.getString("id"))
-//                    .setTitle(bookJson.getString("title"))
-//                    .setDescription(bookJson.getString("description"))
-//                    .setPrice((float) bookJson.getInt("price"))
-//                    .setImageFileName(bookJson.getString("imageFileName"))
-//                    .setAuthors(authors)
-//                    .setPublished(bookJson.getString("published"))
-//                    .setLink(bookJson.getString("link"))
-//                    .setHyperlinks(hyperlinks)
-//                    .createBook();
-//
-//            allBooks.add(book);
-//        }
-//
-//        System.out.println("allBooks = " + allBooks);
 //        return Collections.unmodifiableList(allBooks);
 //    }
+
+
+    @Override
+    public List<Book> getBooks() {
+
+        cachedBooks = new ArrayList<>(); //  Fix this hack
+
+        WebTarget target = client.target(BOOKS_ENDPOINT);
+
+        Response rep = target.request(MediaType.APPLICATION_JSON).get();
+
+        // If links are embedded in the HTTP Header, uncomment this code
+        Set<Link> links = rep.getLinks();
+        System.out.println("links: " + links);
+
+        JsonArray response = rep.readEntity(JsonArray.class);
+//        List<Book> response = rep.readEntity(new GenericType<List<Book>>() {});
+
+        System.out.println("response: " + response);
+
+
+//        JsonArray response        .get(JsonArray.class);
+//        Response response = target.request(MediaType.APPLICATION_JSON).get().getLinks();
+//        List<Book> allBooks = response.readEntity(new GenericType<ArrayList<Book>>(){});
+//        System.out.println("AllBooks: " + allBooks);
+
+
+        System.out.println("JsonArray response: " + response);
+
+        for (int i = 0; i < response.size(); i++) {
+            JsonObject bookJson = response.getJsonObject(i);
+
+            List<Author> authors = extractAuthors(bookJson.getJsonArray("authors"));
+            List<LinkResource> hyperlinks = extractLinks(bookJson.getJsonArray("links"));
+
+            Book book = new BookBuilder()
+                    .setId(bookJson.getString("id"))
+                    .setTitle(bookJson.getString("title"))
+                    .setDescription(bookJson.getString("description"))
+                    .setImageFileName(bookJson.getString("imageFileName"))
+                    .setAuthors(authors)
+                    .setPublished(bookJson.getString("published"))
+                    .setLink(bookJson.getString("link"))
+                   .setHyperlinks(hyperlinks)
+                    .createBook();
+
+            cachedBooks.add(book);
+        }
+
+        return Collections.unmodifiableList(cachedBooks);
+    }
 
     @Override
     public Book getBook(String id) {
@@ -224,9 +221,6 @@ public class BookServiceImpl implements BookService {
      */
     public List<Author> extractAuthors(JsonArray authorArray) {
         List<Author> authors = new ArrayList<>();
-
-        System.out.println("authorArray: " + authorArray);
-        System.out.println("authorArray size: " + authorArray.size());
 
         for (int j = 0; j < authorArray.size(); j++) {
             JsonObject jObject = authorArray.getJsonObject(j);
