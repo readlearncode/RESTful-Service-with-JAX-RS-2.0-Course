@@ -15,6 +15,7 @@ import java.util.Objects;
 public class Author extends Hypermedia implements Serializable {
 
     @NotNull
+    @Pattern(regexp="^[0-9]*$")
     private String id;
 
     @Size(min = 5)
