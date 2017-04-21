@@ -41,6 +41,29 @@ public class BookResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response saveBook(final Book book) {
         Book persistedBook = bookRepository.saveBook(book);
+
+        Link self = Link.fromUri(uriInfo.getBaseUriBuilder()
+                .path(getClass())
+                .path(getClass(), "getBookByIsbn")
+                .build(book.getId()))
+                .rel("self")
+                .type("GET")
+                .build();
+
+        Link delete = Link.fromUri(uriInfo.getBaseUriBuilder()
+                .path(getClass())
+                .path(getClass(), "deleteBook")
+                .build(book.getId()))
+                .rel("delete")
+                .type("DELETE")
+                .build();
+
+        LinkResource selfLink = new LinkResource(self);
+        LinkResource deleteLink = new LinkResource(delete);
+
+        persistedBook.addLink(selfLink);
+        persistedBook.addLink(deleteLink);
+
         return Response.status(Response.Status.OK).entity(persistedBook).build();
     }
 
@@ -94,6 +117,29 @@ public class BookResource {
     @Path("{isbn: \\d{9}[\\d|X]$}")
     public Response updateBook(final Book book, final @PathParam("isbn") String isbn) {
         Book bookPersisted = bookRepository.saveBook(book);
+
+        Link self = Link.fromUri(uriInfo.getBaseUriBuilder()
+                .path(getClass())
+                .path(getClass(), "getBookByIsbn")
+                .build(book.getId()))
+                .rel("self")
+                .type("GET")
+                .build();
+
+        Link delete = Link.fromUri(uriInfo.getBaseUriBuilder()
+                .path(getClass())
+                .path(getClass(), "deleteBook")
+                .build(book.getId()))
+                .rel("delete")
+                .type("DELETE")
+                .build();
+
+        LinkResource selfLink = new LinkResource(self);
+        LinkResource deleteLink = new LinkResource(delete);
+
+        bookPersisted.addLink(selfLink);
+        bookPersisted.addLink(deleteLink);
+
         return Response.ok(bookPersisted).build();
     }
 
@@ -102,6 +148,33 @@ public class BookResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAuthorsForBook(final @PathParam("isbn") String isbn) {
         List<Author> authors = bookRepository.getByISBN(isbn).get().getAuthors();
+
+        for(Author author : authors) {
+
+            Link self = Link.fromUri(uriInfo.getBaseUriBuilder()
+                    .path(Author.class)
+                    .path(Author.class, "getAuthor")
+                    .build(author.getId()))
+                    .rel("self")
+                    .type("GET")
+                    .build();
+
+            Link delete = Link.fromUri(uriInfo.getBaseUriBuilder()
+                    .path(Author.class)
+                    .path(Author.class, "getAllAuthors")
+                    .build(author.getId()))
+                    .rel("all")
+                    .type("GET")
+                    .build();
+
+            LinkResource selfLink = new LinkResource(self);
+            LinkResource deleteLink = new LinkResource(delete);
+
+            author.addLink(selfLink);
+            author.addLink(deleteLink);
+
+        }
+
         return Response.ok(authors).build();
     }
 }
