@@ -24,7 +24,7 @@ public class BookResource {
     private BookRepository bookRepository;
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_XML)
     public Response getAllBook(){
         List<Book> books = bookRepository.getAll();
         GenericEntity<List<Book>> bookWrapper = new GenericEntity<List<Book>>(books){};
