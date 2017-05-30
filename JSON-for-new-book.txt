@@ -1,0 +1,1 @@
+{"id":"1234000000","title":"The Spiral Factor","description":"Captain Blurnt had never known such a triangulation vector like the one he saw that day","imageFileName":"/images/covers/no_image.png","link":"https://leanpub.com","price":10,"published":"2017-02-01T00:00:00+01:00","authors":[{"id":"55","lastName":"Theedom","firstName":"Alex","blogURL":"http://www.readlearncode.com"}]}
